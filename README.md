@@ -2,7 +2,7 @@ Ctracker 0.01 beta
 =======================
 
 Ctracker is a free and open source web monitoring tool used to keep track of your remote linux machines in real time.
-You can get many(today just CPU, RAM memory, Disk and Swap) metrics that allow you to see how much your servers are consuming.
+You can get metrics(today just CPU, RAM memory, Disk and Swap) that allow you to see how much your servers are consuming.
 This kind of tool is specially important in a cloud-like environment(for both public or private).
 
 

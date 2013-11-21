@@ -71,7 +71,7 @@ Currently you can get the same data as you should with vmstat tool:
 Please read the INSTALLATION file.	I don't have binaries packages for the ctracker client just yet - Stay tunned =).
 
 
-###### evelopment:
+###### Development:
 
 ctracker is developed in several languages depending of the task that need to be done.
 For the frontend I have used PHP with MongoDB to stores the massive amount of JSON massages sent by the clients;

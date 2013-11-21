@@ -68,16 +68,16 @@ Currently you can get the same data as you should with vmstat tool:
 ###### Instalation & Compilation:
 
 	
-	Please read the INSTALLATION file.	I don't have binaries packages for the ctracker client just yet - Stay tunned =).
+Please read the INSTALLATION file.	I don't have binaries packages for the ctracker client just yet - Stay tunned =).
 
 
 ###### evelopment:
 
-	ctracker is developed in several languages depending of the task that need to be done.
-	For the frontend I have used PHP with MongoDB to stores the massive amount of JSON massages sent by the clients;
-	Also, we use a small MySQL database to manage the users and the instances(phisical or virtual machines) - add/edit/update/remove;
+ctracker is developed in several languages depending of the task that need to be done.
+For the frontend I have used PHP with MongoDB to stores the massive amount of JSON massages sent by the clients;
+Also, we use a small MySQL database to manage the users and the instances(phisical or virtual machines) - add/edit/update/remove;
 
-	Regarding the client I have used both C++ and Shell Bash script(Used to execute the vmstat unix tool);
+Regarding the client I have used both C++ and Shell Bash script(Used to execute the vmstat unix tool);
 
 
 ###### Dependencies:

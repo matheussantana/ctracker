@@ -60,7 +60,7 @@ Currently you can get the same data as you should with vmstat tool:
 
 ###### Snapshots
 
-![Control Panel](https://github.com/matheussantana/ctracker/blob/master/documentation/snapshots/index.png "Control Panel")
+![Control Panel](https://raw.github.com/matheussantana/ctracker/master/documentation/snapshots/index.png "Control Panel")
 
 
 

@@ -60,8 +60,28 @@ Currently you can get the same data as you should with vmstat tool:
 
 ###### Snapshots
 
+Control Panel:
+
 ![Control Panel](https://raw.github.com/matheussantana/ctracker/master/documentation/snapshots/index.png "Control Panel")
 
+
+Table sorter:
+
+![dump](https://raw.github.com/matheussantana/ctracker/master/documentation/snapshots/dump.png "Table Sorter")
+
+CPU:
+
+![CPU](https://raw.github.com/matheussantana/ctracker/master/documentation/snapshots/cpu.png "CPU")
+
+Disk:
+![Disk](https://raw.github.com/matheussantana/ctracker/master/documentation/snapshots/disk.png "Disk")
+
+Memory:
+![Memory](https://raw.github.com/matheussantana/ctracker/master/documentation/snapshots/memory.png "Memory")
+
+Swap:
+
+![SWAP](https://raw.github.com/matheussantana/ctracker/master/documentation/snapshots/swap.png "SWAP")
 
 
 ###### Architecture:

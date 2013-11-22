@@ -58,6 +58,11 @@ Currently you can get the same data as you should with vmstat tool:
        wa: Time spent waiting for IO. Prior to Linux 2.5.41, shown as zero.
 ```
 
+###### Snapshots
+
+![Control Panel](https://github.com/matheussantana/ctracker/blob/master/documentation/snapshots/index.png "Control Panel")
+
+
 
 ###### Architecture:
 

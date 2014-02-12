@@ -73,6 +73,8 @@ elseif($obj['date']['month'] == "Nov")
 	$month = "Nov";
 elseif($obj['date']['month'] == "Dez")
 	$month = "Dec";
+else
+        $month = $obj['date']['month'];
 
 
 

@@ -43,12 +43,14 @@ $criteria = array(
 'InstanceToken' => $itoken);
 
   $cursor = $collection->find($criteria);
+
 //$cursor->sort(array('time' => 1));
 ?>
 <?
 
 $count=0;
   foreach ($cursor as $obj) {
+
 if($obj['date']['month'] == "Jan")
 	$month = "Jan";
 elseif($obj['date']['month'] == "Fev")
@@ -74,11 +76,7 @@ elseif($obj['date']['month'] == "Nov")
 elseif($obj['date']['month'] == "Dez")
 	$month = "Dec";
 else
-        $month = $obj['date']['month'];
-
-
-
-
+	$month = $obj['date']['month']; 
 /*
     * jan
     * feb
@@ -97,12 +95,17 @@ else
 $time_UTC = $month.' '.$obj['date']['day'].','. ' '.$obj['date']['year'].' '.$obj['date']['time']. ' '.$obj['date']['type'];
 $ts = strtotime($time_UTC)*1000;//converte de UTC para Unix timestamp - multiplica por 1000 pra pegar o javascript timestamp;
 
+date_default_timezone_set("UTC");
+
+//Filtra para as ultimas 5 horas
+if(time()-$ts/1000<=18000){
+
 //echo 'timestamp: '.$ts.'<br>';
 //echo $time_UTC.'<br>';
-$vet_time[$count]='['.$ts.', '.$obj['memory']['free'].']';
-$vet_time_cpu_us[$count]='['.$ts.', '.$obj['cpu']['id'].']';
-$vet_time_io_bo[$count]='['.$ts.', '.$obj['io']['bo'].']';
-$vet_time_swap_so[$count]='['.$ts.', '.$obj['swap']['so'].']';
+	$vet_time[$count]='['.$ts.', '.$obj['memory']['free'].']';
+	$vet_time_cpu_us[$count]='['.$ts.', '.$obj['cpu']['id'].']';
+	$vet_time_io_bo[$count]='['.$ts.', '.$obj['io']['bo'].']';
+	$vet_time_swap_so[$count]='['.$ts.', '.$obj['swap']['so'].']';
 
 //$ar = sizeof(iterator_to_array($cursor));
 //echo $ar."<br><br>";
@@ -110,11 +113,12 @@ $vet_time_swap_so[$count]='['.$ts.', '.$obj['swap']['so'].']';
 
 
 //if($count != sizeof(iterator_to_array($cursor))){
-if($cursor->hasNext() == true){
-	$vet_time[$count]=$vet_time[$count].',';
-	$vet_time_cpu_us[$count]=$vet_time_cpu_us[$count].',';
-	$vet_time_io_bo[$count]=$vet_time_io_bo[$count].',';
-	$vet_time_swap_so[$count]=$vet_time_swap_so[$count].',';
+	if($cursor->hasNext() == true){
+		$vet_time[$count]=$vet_time[$count].',';
+		$vet_time_cpu_us[$count]=$vet_time_cpu_us[$count].',';
+		$vet_time_io_bo[$count]=$vet_time_io_bo[$count].',';
+		$vet_time_swap_so[$count]=$vet_time_swap_so[$count].',';
+	}
 }
 //echo $vet_time[$count];
 $count++;

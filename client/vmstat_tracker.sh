@@ -139,7 +139,7 @@ rx_sum=0.0;
 for rx in $ethx; do
 	rx=${rx//,/.};
         rx_array="$rx_array \"$rx\"";
-	rx_sum=$(python -c "print $tr_sum+$rx")
+	rx_sum=$(python -c "print $rx_sum+$rx")
         if [[ "$counter" -ne ${size} ]] ; then
                counter=$((counter+1))
                rx_array="$rx_array, ";

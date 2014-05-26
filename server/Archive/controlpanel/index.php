@@ -61,12 +61,12 @@ if(isset($_SESSION['email']) == false){
     <!--start header-->
     <header>
       <!--start logo-->
-      <a href="#" id="logo" style="color: red; text-decoration: none;"><h1>ctracker</h1></a>    
+      <a href="../index.php" id="logo" style="color: red; text-decoration: none;"><h1>ctracker</h1></a>    
       <!--end logo-->
       <!--start menu-->
   	   <nav>
          <ul>
-<? include "facebox/facebox.php";?>
+	<? include "facebox/facebox.php";?>
          <li><a href="../form.php?tp=add-server" rel="facebox">Add new server</a></li>
      	   <li><a href="#">About</a></li>
      	   <li><a href="#">FAQ</a></li>

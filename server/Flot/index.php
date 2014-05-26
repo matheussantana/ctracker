@@ -167,10 +167,10 @@ getjsplot("network", "rxSum", "placeholder6", "updateinterval6",$itoken, $interv
    bottom:0px;
    height:30px;
    width:100%;
-   background:black;"> <a href="../../index.php"><img title="Home" style="position: fixed; bottom: 3px; left: 10px;" src="../pic/home.png" alt="Home"></a> </div>
+   background:black;"> <a href="../index.php"><img title="Home" style="position: fixed; bottom: 3px; left: 10px;" src="../pic/home.png" alt="Home"></a> </div>
 
- <a href="../vmstat/Dyn/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="Streaming" style="position: fixed; bottom: 1px; left: 40px;" src="../../pic/Play.png" alt="Streaming"></>
- <a href="../vmstat/Static/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="History" style="position: fixed; bottom: 1px; left: 70px;" src="../../pic/list.png" alt="History"></>
-<a href="../../top/Dyn/top.php"><img title="Process" style="position: fixed; bottom: 2px; left: 103px;" src="../../pic/process.png" alt="Process">
+ <a href="../vmstat/Dyn/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="Streaming" style="position: fixed; bottom: 1px; left: 40px;" src="../pic/Play.png" alt="Streaming"></>
+ <a href="../vmstat/Static/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="History" style="position: fixed; bottom: 1px; left: 70px;" src="../pic/list.png" alt="History"></>
+<a href="../../top/Dyn/top.php"><img title="Process" style="position: fixed; bottom: 2px; left: 103px;" src="../pic/process.png" alt="Process">
 </body>
 </html>

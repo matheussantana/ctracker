@@ -57,7 +57,7 @@ if(isset($_POST['interval']) == false || $_POST['interval'] != "def"){//sanity
 	<title>Server Real-time updates</title>
 	<link href="flot.css" rel="stylesheet" type="text/css">
 <?//remove styles.css to return to the original css.?>
-	<link href="../../Archive/controlpanel/css/styles.css" rel="stylesheet" type="text/css">
+	<link href="../Archive/controlpanel/css/styles.css" rel="stylesheet" type="text/css">
 
 	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../../excanvas.min.js"></script><![endif]-->
 	<script language="javascript" type="text/javascript" src="jquery.js"></script>

@@ -114,8 +114,9 @@ echo  '{
 #network
 
 #device list
-ethx=`sar -n DEV 1 1 | grep -v Average | tail -n +4 > ethx.tmp`;
-ethx=`cat ethx.tmp | awk -F ' ' '{print $2}'`;
+#sar  -n DEV 1 1 | grep -v Average | tail -n +4 | column -t | awk '{print $(NF-3)}
+ethx=`sar -n DEV 1 1 | grep -v Average | tail -n +4 | column -t > ethx.tmp`;
+ethx=`cat ethx.tmp | awk -F ' ' '{print $(NF-7)}'`;
 ethx_vet=($ethx);
 size=${#ethx_vet[@]};
 size=$((size-1));
@@ -129,7 +130,7 @@ for eth in $ethx; do
 done
 
 #download
-ethx=`cat ethx.tmp | awk -F ' ' '{print $5}'`;
+ethx=`cat ethx.tmp | awk -F ' ' '{print $(NF-4)}'`;
 ethx_vet=($ethx);
 size=${#ethx_vet[@]};
 size=$((size-1));
@@ -146,7 +147,7 @@ for rx in $ethx; do
 done
 
 #upload
-ethx=`cat ethx.tmp | awk -F ' ' '{print $6}'`;
+ethx=`cat ethx.tmp | awk -F ' ' '{print $(NF-3)}'`;
 ethx_vet=($ethx);
 size=${#ethx_vet[@]};
 size=$((size-1));

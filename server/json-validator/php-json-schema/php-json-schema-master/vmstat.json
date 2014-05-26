@@ -364,6 +364,14 @@
                                                                 "codename":{
                                                                         "type":"string",
                                                                         "required": true
+                                                                },
+                                                                "arch":{
+                                                                        "type":"string",
+                                                                        "required": true
+                                                                },
+                                                                "hostname":{
+                                                                        "type":"string",
+                                                                        "required": true
                                                                 }
 
 

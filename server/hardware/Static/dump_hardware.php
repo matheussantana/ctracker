@@ -101,6 +101,8 @@ function convertTimestamp(timestamp) {
 				<th>Distribution</th>
 				<th>Release</th>
 				<th>Codename</th>
+				<th>Architecture</th>
+				<th>Hostname</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -110,7 +112,8 @@ echo'			<tr>
                                 <td>'.$obj['hardware']['os']['distro'].'</td>
 				<td>'.$obj['hardware']['os']['release'].'</td>
                                 <td>'.$obj['hardware']['os']['codename'].'</td>
-
+                                <td>'.$obj['hardware']['os']['arch'].'</td>
+                                <td>'.$obj['hardware']['os']['hostname'].'</td>
 			</tr>';
 }
 ?>

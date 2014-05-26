@@ -1,0 +1,11 @@
+Package: ctracker
+Version: 0.0.1-1
+Architecture: amd64
+Maintainer: Matheus Santana <matheusslima@yahoo.com.br>
+Installed-Size: 112
+Depends: libcurl4-openssl-dev (>= 7.18.0)
+Section: utils
+Priority: optional
+Homepage: https://github.com/matheussantana/ctracker/
+Description: Cloud Computing Monitoring Tool
+  Ctracker is a free and open source web monitoring tool used to keep track of your remote linux machines in real time. You can get metrics and graphs(today just CPU, RAM memory, Disk and Swap) that allow you to see how much your servers are consuming. This kind of tool is specially important in a cloud-like environment(for both public or private).

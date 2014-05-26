@@ -30,14 +30,26 @@
 $tp = (isset($_POST["tp"])) ? $_POST["tp"] : $_GET["tp"];
 
 if(strcmp($tp, "delete-server") == 0){
-	$sid = formatData($_GET["sid"]);
-	$email = $_SESSION['email'];
 
-        $delete = "DELETE FROM instance WHERE instanceID='$sid' AND email='$email'";
+	include "../../mongoconnection.php";
 
+	if(isset($_GET['sid']) || empty($_GET['sid']) == 1){
+		$sid = safe(formatData($_GET["sid"]));
+		$email = $_SESSION['email'];
+
+	        $delete = "DELETE FROM instance WHERE instanceID='$sid' AND email='$email'";
+	}else{
+		$delete = '';
+	}
 }
 
 $query = mysql_query($delete);
+if($query){
+	if(strcmp($tp, "delete-server") == 0){
+
+		$collection->remove(array('InstanceToken' => $sid),  array( 'w' => true ));
+	}
+}
 //  echo "Error creating database: " . mysql_error();
 //	die();
 

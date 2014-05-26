@@ -38,6 +38,19 @@ function verifyUser($id_user, $type) {
         return false;
 }
 
+function getAlias($itoken) {
+
+	$itoken = safe($itoken);
+
+    $query = mysql_query("SELECT Alias FROM instance WHERE instanceID='$itoken'");
+
+    if (mysql_num_rows($query) == 1){
+        mysql_fetch_array($query);
+	return $query['Alias'];}
+    else
+        return false;
+}
+
 function formatData($string) {
 
     $string = str_replace('"', "\"", $string); // replace " with \"
@@ -195,5 +208,7 @@ return $string;
 
 }
 
-
+function safe($value){
+   return mysql_real_escape_string($value);
+} 
 ?>

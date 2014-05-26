@@ -29,12 +29,15 @@
  *****************************************************************************/
 //include_once "../functions.php";
 //$tp = formatData($_GET['tp']);
+
 $tp = $_GET['tp'];?>
 
 
 <?
-if (strcmp($tp, "Registrar") == 0) {
+if (strcmp($tp, "Register") == 0) {
 	$action = "index.php?pg=add";
+echo '          <p style="padding: 10px;"> Register </p>';
+
 }
 elseif (strcmp($tp, "add-server") == 0) {
 	$action = "index.php?pg=../add";
@@ -42,7 +45,7 @@ elseif (strcmp($tp, "add-server") == 0) {
 ?>
 
 
-<?if (strcmp($tp, "Registrar") == 0) {?>
+<?if (strcmp($tp, "Register") == 0) {?>
     <script language="javascript">
         function validate (form){
 		if (form.email.value.indexOf("@") == -1 || form.email.value.lastIndexOf(".") == -1) {
@@ -69,6 +72,11 @@ elseif (strcmp($tp, "add-server") == 0) {
                 return false;
             }
 
+		if(form.password2.value != form.password.value){
+	                alert("Passwords don't match.");
+        	        form.password2.focus();
+                	return false;
+		}
 
 
             return true;
@@ -77,23 +85,22 @@ elseif (strcmp($tp, "add-server") == 0) {
 
 
 <?}?>
-
-
 <form method="post" name="form" action="<?php echo $action; ?>" onSubmit="return validate(this)"<?php if (isset($enctype))
     echo " enctype=\"" . $enctype . "\""; ?>>
-
 <?
-if (strcmp($tp, "Registrar") == 0) {
+if (strcmp($tp, "Register") == 0) {
 ?>
 
 		<label for="name">Email:</label>
 		
 		<input type="name" name="email">
-		<label for="name">Password:</label>
-		
-		
+		<label for="password">Password:</label>
 		<input type="password" name="password">
 		
+		<label for="password2">Repeat password:</label>
+		<input type="password" name="password2">
+	
+
 		<div id="lower">
 		
 		<input type="submit" name = "submit" value="Registrar">

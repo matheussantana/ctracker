@@ -1,0 +1,390 @@
+{
+    "description" : "vmstat",
+    "type" : "object",
+    "properties" : {
+        "timestamp" : {
+            "type" : "integer",
+            "required" : true
+        },
+	"InputDataName" : {
+		"type" : "string",
+		"enum" : ["vmstat"],
+		"required" : true
+	},
+        "date" : {
+            "type" : "object",
+	    "properties":{
+		"day":{
+			"type":"number",
+			"minimum" : 1,
+			"maximum" : 31,
+			"required": true
+		},
+		"month":{
+			"type":"number",
+			"minimum": 1,
+			"maximum": 12,
+			"required": true
+		},
+		"time":{
+			"type":"string",
+			"required":true
+		},
+		"year":{
+			"type":"number",
+			"minimum":1970,
+			"maximum": 2030,
+			"required": true
+		},
+		"type":{
+			"type":"string",
+			"enum": ["UTC"],
+			"required" : true
+		}
+	},
+            "required" : true
+        },
+	"procs": {
+
+		"type" : "object",
+		"properties":{
+			"r":{
+				"type":"number",
+				"minimum":0,
+				"required": true
+			},
+			"b":{
+				"type":"number",
+				"minimium":0,
+				"required":true
+			}
+		}
+	},
+	"memory": {
+		"type": "object",
+		"properties":{
+                       "swpd":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "free":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "buff":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "cache":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        }
+		}
+	},
+	"swap": {
+		"type": "object",
+		"properties":{
+                       "si":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "so":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        }
+		}
+	},
+
+	"io": {
+		"type": "object",
+		"properties":{
+                       "bi":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "bo":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        }
+		}
+	},
+
+	"system": {
+		"type": "object",
+		"properties":{
+                       "in":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "in":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        }
+		}
+	},
+
+
+	"cpu": {
+		"type": "object",
+		"properties":{
+                       "us":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "sy":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "id":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        },
+                        "wa":{
+                                "type":"number",
+                                "minimum":0,
+                                "required": true
+                        }
+		}
+	},
+	"network": {
+		"type": "object",
+		"properties":{
+                       "device":{
+                                "type":"array",
+				"items": {
+					"type" : "string",
+					"minItems" : 1,
+					"required": true
+				}
+                        },
+                        "rxkBs":{
+                                "type":"array",
+				"items": {
+					"type": "number",
+					"required": true
+				}
+                        },
+			"rxSum":{
+				"type":"number",
+				"required":true
+			},
+                        "txkBs":{
+                                "type":"array",
+                                "items": {
+                                        "type": "number",
+                                        "required": true
+                                }
+                        },
+                        "txSum":{
+                                "type":"number",
+                                "required":true
+                        }
+
+		}
+	},
+	"process":{
+
+		"type":"object",
+		"properties":{
+			"plist":{
+				"type":"array",
+				"items":{
+					"type":"object",
+					"properties":{
+						"name":{
+							"type":"string",
+							"required":true
+						},
+						"status":{
+							"type":"string",
+		                        	        "enum" :["Running","Disabled","Stopped"],
+							"required":true
+						},
+						"pid":{
+							"type":"number"
+						},
+						"cpu":{
+							"type":"number"
+						},
+						"mem":{
+							"type":"number"
+						},
+						"time":{
+							"type":"string"
+						}}
+
+						},
+				"required":true
+			}
+			},
+		"required":true
+    
+		
+	},
+
+        "hardware":{
+
+                "type":"object",
+                "properties":{
+
+
+
+                                                "cpu":{
+                                                        "type":"object",
+                                                        "properties":{
+				                                "physical_cpus":{
+				                                        "type":"integer",
+									"required": true
+				                                },
+				                                "cores_per_cpu":{
+				                                        "type":"integer",
+                                                                        "required": true
+
+				                                },
+				                                "number_of_processors":{
+				                                        "type":"integer",
+                                                                        "required": true
+
+				                                },
+				                                "model_name":{
+				                                        "type":"string",
+                                                                        "required": true
+
+				                                },
+				                                "cache_size_kb":{
+				                                        "type":"number",
+                                                                        "required": true
+
+				                                },
+
+				                                "freq_cpu":{
+				                                        "type":"number",
+                                                                        "required": true
+
+				                                }
+
+							},
+							"required": true
+                                                },
+
+
+
+                                               "mem":{
+                                                        "type":"object",
+                                                        "properties":{
+				                                "size_mb":{
+				                                        "type":"integer",
+									"required": true
+				                                }
+
+
+							},
+							"required": true
+                                                },
+
+                                               "fs":{
+                                                        "type":"object",
+                                                        "properties":{
+				                                "device":{
+									"type":"array",
+									"items": {
+										"type": "string",
+										"required": true
+									}
+
+				                                },
+
+				                                "size":{
+									"type":"array",
+									"items": {
+										"type": "string",
+										"required": true
+									}
+
+				                                },
+				                                "avail":{
+									"type":"array",
+									"items": {
+										"type": "string",
+										"required": true
+									}
+
+				                                },
+				                                "pct":{
+									"type":"array",
+									"items": {
+										"type": "string",
+										"required": true
+									}
+
+				                                },
+				                                "used":{
+									"type":"array",
+									"items": {
+										"type": "string",
+										"required": true
+									}
+
+				                                },
+				                                "mount":{
+									"type":"array",
+									"items": {
+										"type": "string",
+										"required": true
+									}
+
+				                                }
+							}
+                                                },
+
+                                               "os":{
+                                                        "type":"object",
+                                                        "properties":{
+                                                                "distro":{
+                                                                        "type":"string",
+                                                                        "required": true
+                                                                },
+                                                                "release":{
+                                                                        "type":"number",
+                                                                        "required": true
+                                                                },
+                                                                "codename":{
+                                                                        "type":"string",
+                                                                        "required": true
+                                                                }
+
+
+                                                        },
+                                                        "required": true
+                                                }
+
+                        }
+
+
+
+        },
+
+        "InstanceToken" : {
+            "type" : "string",
+            "required" : true
+        }
+
+
+
+   },
+	"additionalProperties" : false
+
+}

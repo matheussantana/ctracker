@@ -1,0 +1,23 @@
+<?
+
+//https://github.com/hasbridge/php-json-schema/tree/master/src#
+include 'src/Json/Validator.php';
+//include 'tests/JsonValidatorTest.php';
+
+use Json\Validator;
+
+$someJson = '{
+        "name" : "volta ao mundo em 80 dias",
+        "author" : "Julio Verne",
+        "isbn" : "123a455",
+        "publisher" : "Companhia das Letras",
+        "price" : "80"
+}';
+$jsonObject = json_decode($someJson);
+
+//$validator = new JsonValidator('example/book.json');
+$validator = new Validator('./example/book.json');
+
+$validator->validate($jsonObject);
+
+?>

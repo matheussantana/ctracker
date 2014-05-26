@@ -101,4 +101,10 @@ elseif(strcmp($msg, "confirm-friend-request") == 0){ // confirm friend request
 
 }
 
+echo "<script type=\"text/JavaScript\">
+<!--
+setTimeout(\"location.href = 'index.php';\",3500);
+-->
+</script>";
+
 ?>

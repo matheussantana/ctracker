@@ -1,0 +1,150 @@
+ctracker - Cloud Computing Monitoring Tool
+
+ctracker © Matheus SantAna 2012-2013 - version 0.01 beta 
+INSTALLATION GUIDES - 20 November 2013
+
+==SERVER INSTALLATION==
+
+OS Distro
+
+	Debian wheezy 7.2
+
+	# apt-get update
+
+Install MySQL
+
+	# aptitude install mysql-server mysql-client
+
+	You will be prompted to choose a password for the MySQL root user.
+
+Install MongoDB
+
+	Import MongoDB PGP Key:
+
+		# apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+
+	Create a sources.list file for MongoDB
+
+		# echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list
+
+	Reload Local Package Database
+		
+		# apt-get update
+
+	Install Packages
+
+		# apt-get install mongodb-10gen
+
+	Start MongoDB
+
+		# service mongodb start
+
+Install Apache2
+
+	# aptitude install apache2 apache2-doc
+
+Install PHP5
+
+	 # aptitude install php5 php5-dev php5-cli php-pear php5-mysql libapache2-mod-php5
+
+	# pecl install mongo
+
+==SERVER CONFIGURATION==
+
+	
+	# tar -zxvf ctracker0.01beta.tar.gz
+
+	Copy the content of the server folder to /var/www(This path may change depending of your apache setup).
+
+	# cp server/* /var/www
+
+	Change the files owner to the apache user(www-data in Debian).
+
+	# cd /var/www
+	# chown -R www-data:www-data *
+
+
+Configuring MySQL
+
+	Login to MySQL:
+
+		# mysql -u<USER> -p<PASS>
+
+	And create a new database called ctracker
+
+		mysql> create database ctracker
+
+	Exit MysQL
+
+		mysql> exit
+
+	Import the ctracker.sql Schema to the ctracker database
+
+		# cd /var/www/DBSChema
+		# mysql -uroot -proot ctracker < ctracker.sql
+
+	It's more safaly to remove this schema from the server
+
+		rm ctracker.sql
+
+Configuring MongoDB with PHP
+
+	Edit /etc/php5/apache2/php.ini and add
+
+		extension=mongo.so
+
+	Restart apache
+
+		service apache2 restart
+
+Now you should be able to open your browser and go to http://youripaddress and everything should be working.
+
+
+==CLIENT INSTALLATION==
+
+        # tar -zxvf ctracker0.01beta.tar.gz
+
+	# cd client/
+
+	# apt-get update
+
+	Install the necessary packages to compile
+
+	# apt-get install build-essential
+	# apt-get install libcurl3
+	# apt-get install libcurl4-openssl-dev
+
+
+	Run make and makefile
+
+	/usr/bin/make -f nbproject/Makefile-Debug.mk SUBPROJECTS= .build-conf
+
+	Compile ctracker
+
+	g++    -o dist/Debug/GNU-Linux-x86/cloud build/Debug/GNU-Linux-x86/DataOutputJson.o build/Debug/GNU-Linux-x86/InputDataInterface.o build/Debug/GNU-Linux-x86/Instance.o build/Debug/GNU-Linux-x86/vmstat.o build/Debug/GNU-Linux-x86/main.o -lcurl
+
+==CLIENT CONFIGURATION==
+
+
+	Create the info.conf like this
+
+		ITOKEN=<INSERT HERE YOUR VM TOKEN/INSTANCEID PREVIOUS GENERATED>
+		TIMESAMPLES=<INSERT HERE YOUR TIME FREQUENCY IN SECONDS - INTEGER NUMBERS: 2 or 3 or 10 etc>
+		SERVERURL=http://<SERVER IP ADDRESS>/tracker.php
+
+
+	info.conf example
+
+		ITOKEN=528d36c931c5f8.82267318
+		TIMESAMPLES=2
+		SERVERURL=http://192.168.1.110/tracker.php
+
+	Run the ctracker client
+
+		./dist/Debug/GNU-Linux-x86/cloud		
+
+More info:
+
+	https://wiki.debian.org/LaMp
+	http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian/
+

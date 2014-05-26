@@ -28,8 +28,8 @@
  *
  *****************************************************************************/
 
- $conn = new Mongo('localhost');
-
+# $conn = new Mongo('localhost');
+  $conn = new MongoClient('mongodb://localhost');
   // access database
   $db = $conn->test;
 

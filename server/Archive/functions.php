@@ -39,6 +39,18 @@ function verifyUser($id_user, $type) {
         return false;
 }
 
+function isInstanceOwner($email, $itoken){
+	$isMail = filter_var($email, FILTER_VALIDATE_EMAIL);
+	if($isMail != false){
+		$query = mysql_query("SELECT * FROM instance WHERE email = '$email' and instanceID = '$itoken'");
+
+		if (mysql_num_rows($query) == 1)
+			return mysql_fetch_array($query);
+		else
+			return false;
+	}
+}
+
 function formatData($string) {
 
     $string = str_replace('"', "\"", $string); // replace " with \"
@@ -127,5 +139,23 @@ function hasPrivilege($operation, $type, $id_user_type){
     else
         return false;
 }
+
+function safe($value){
+   return mysql_real_escape_string($value);
+} 
+
+function getAlias($itoken) {
+
+        $itoken = safe($itoken);
+
+    $query = mysql_query("SELECT Alias FROM instance WHERE instanceID='$itoken'");
+
+    if (mysql_num_rows($query) == 1){
+        $row = mysql_fetch_array($query);
+        return $row['Alias'];}
+    else
+        return false;
+}
+
 
 ?>

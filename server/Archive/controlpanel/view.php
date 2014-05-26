@@ -47,8 +47,8 @@ if (strcmp($tp, "view-servers") == 0) { ?>
 		  while ($inst= mysql_fetch_array($inst_query)) {?>
 					<tr>
 						<td><?echo $inst['instanceID'];?></td>
-						<td><?echo $inst['Alias'];?></td>
-						<td><a href="../../vmstat.php?itoken=<? echo $inst['instanceID']; ?>">Show all metrics</a> | <a href="../../Flot/index.php?itoken=<? echo $inst['instanceID']; ?>">Graphs</a> |  <a href="index.php?pg=delete&tp=delete-server&sid=<? echo $inst['instanceID']; ?>">Remove</a></td>
+						<td><a rel="facebox" href="../../hardware/Static/dump_hardware.php?itoken=<? echo $inst['instanceID']; ?>"><?echo $inst['Alias'];?></a></td>
+						<td><a href="../../vmstat/Dyn/vmstat.php?itoken=<? echo $inst['instanceID']."&page=1"; ?>">Streaming</a> | <a href="../../vmstat/Static/vmstat.php?itoken=<? echo $inst['instanceID']."&page=1"; ?>">History</a> | <a href="../../Flot/index.php?itoken=<? echo $inst['instanceID']; ?>&interval=def">Chart</a> |  <a href="index.php?pg=delete&tp=delete-server&sid=<? echo $inst['instanceID']; ?>" onclick="return confirm('Are you sure you want to delete this item?');">Remove</a></td>
 	
 					</tr>
 		<?}?>

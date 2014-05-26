@@ -1,0 +1,6 @@
+* Option to change the display range(start from last 5 minutes, start from last hour, day...);
+* Change servers name;
+* RPM packages;
+* Create scripts used by 'service' tool - chkconfig;
+* Use HTTPS;
+* Show hostname on graphic charts and dump table;

@@ -32,6 +32,7 @@ session_start();
 ini_set('display_errors',1); 
  error_reporting(E_ALL);
 include "../mysqlconnection.php";
+require("../phpass/phpass-0.3/PasswordHash.php");
 include_once "functions.php";
 ?>
 <!doctype html>
@@ -54,13 +55,15 @@ include_once "functions.php";
 
 	<!-- Main HTML -->
 	
-<body>
+<body style="background-image: url(http://192.168.1.112/Archive/controlpanel/images/bg.png); 
+	background-position: left top;
+	background-repeat: repeat;">
 
 <p style="position: fixed;top: 10px; left: 10px; font-size:30px;">ctracker</p>
 
 <?if (isset($_SESSION['email']) == false) {?>
 
-	<div id="container">
+	<div id="container" style="height: auto;">
 <?php
             if (isset($_GET['pg'])) {
                 $pg = formatData($_GET['pg']);
@@ -72,8 +75,8 @@ include_once "functions.php";
                     echo "<script>window.location='" . basename($_SERVER['PHP_SELF']) . "?pg=message&msg=error-page-not-found';</script>";
             }else {?>	
 	<!-- Begin Page Content -->
-		
- <form name="input" action="login.php" method="get">
+		<h1 style="padding: 10px;"> Login </h1>	
+		<form name="input" action="login.php" method="get">
 		
 		<label for="name">Email:</label>
 		
@@ -84,11 +87,11 @@ include_once "functions.php";
 		<input type="password" name="pass">
 		
 		<div id="lower">
-		
-		<input type="submit" name = "submit" value="Registrar">
 
 		<input type="submit" name = "submit"  value="Login">
-		
+
+		<input type="submit" name = "submit" value="Register">
+				
 		</div>
 		
 		</form>
@@ -118,14 +121,6 @@ echo "<script>window.location='controlpanel/index.php';</script>";
    bottom:0px;
    height:30px;
    width:100%;
-   background:black;"> <p style="position: fixed; bottom: 7px; left: 10px; color: white">ctracker © Matheus SantAna 2012-2013 - version 0.01 beta</p> </di>
+   background:black;"> <p style="position: fixed; bottom: 7px; left: 10px; color: white">ctracker © Matheus SantAna 2012-2014 - version 0.02 beta</p> </di>
 </body>
-
 </html>
-	
-	
-	
-	
-	
-		
-	

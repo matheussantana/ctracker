@@ -32,7 +32,7 @@ $msg = formatData($_GET['msg']);
 
 if(strcmp($msg, "error-login") == 0){ // login error
 
-    echo "<label>E-mail or password incorrect. <br>Try again or sign-up.<img alt='E-mail or password incorrect' style='vertical-align:middle;' src='img/sad.png'/></label>";
+    echo "<label style=\"padding: 5px;\">E-mail or password incorrect. <br>Try again or sign-up.<img alt='E-mail or password incorrect' style='vertical-align:middle;' src='img/sad.png'/></label>";
 
 }
 elseif(strcmp($msg, "error-page-not-found") == 0){ // page not find
@@ -100,5 +100,11 @@ elseif(strcmp($msg, "confirm-friend-request") == 0){ // confirm friend request
     echo "<p>Your request was send with success.</p>";
 
 }
+
+echo "<script type=\"text/JavaScript\">
+<!--
+setTimeout(\"location.href = 'index.php';\",3500);
+-->
+</script>";
 
 ?>

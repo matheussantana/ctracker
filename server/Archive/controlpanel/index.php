@@ -66,12 +66,11 @@ if(isset($_SESSION['email']) == false){
       <!--start menu-->
   	   <nav>
          <ul>
-         <li><a href="index.php" class="current">Home</a></li>
 <? include "facebox/facebox.php";?>
          <li><a href="../form.php?tp=add-server" rel="facebox">Add new server</a></li>
      	   <li><a href="#">About</a></li>
      	   <li><a href="#">FAQ</a></li>
-
+	   <li><a href="../../top/Dyn/top.php"; ?>Process</a></li>
 	<li><a href="../index.php?pg=logout">Logout</a></li>
          </ul>
       </nav>
@@ -110,7 +109,7 @@ if(isset($_SESSION['email']) == false){
    <footer>
 
       <div class="container">  
-         <div id="FooterTree"> ctracker © Matheus SantAna 2012-2013 - version 0.01 beta <br>HTML template based from: © 2011 Minimalis -Valid html5, design and code by <a href="http://www.marijazaric.com">marija zaric - creative simplicity</a> </div> 
+         <div id="FooterTree"> ctracker © Matheus SantAna 2012-2014 - version 0.02 beta <br>HTML template based from: © 2011 Minimalis -Valid html5, design and code by <a href="http://www.marijazaric.com">marija zaric - creative simplicity</a> </div> 
       </div>
    </footer>
 

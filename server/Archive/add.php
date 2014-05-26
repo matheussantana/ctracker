@@ -31,16 +31,50 @@ $tp = (isset($_POST["tp"])) ? $_POST["tp"] : $_GET["tp"];
 
 if (strcmp($tp, "signup") == 0) {
 
-	$email = $_POST['email'];
-	$pass = $_POST['password'];
+	$hasher = new PasswordHash(8, false);
+	$email = filter_var(safe($_POST['email']) , FILTER_VALIDATE_EMAIL);
 
-	$insert = "INSERT INTO user (email, pass, date_register) values ('$email','$pass', Now())";
+	if($email == false){
+		$insert = "";
+		echo "arg. wrong";
+	}else{
+
+		$password = safe($_POST['password']);
+
+		if (strlen($password) > 72) {
+			die("Password must be 72 characters or less");
+		}
+
+		// The $hash variable will contain the hash of the password
+		$hash = $hasher->HashPassword($password);
+
+		if (strlen($hash) >= 20) {
+
+			$pass = $hash;
+			$insert = "INSERT INTO user (email, pass, date_register) values ('$email','$pass', Now())";
+		}
+		else
+			$insert = "";
+	}
 }
 elseif (strcmp($tp, "add-server") == 0) {
 
-	$name = $_POST['name'];
+	require("../phpass/phpass-0.3/PasswordHash.php");
+
+	$rg_name = "/^[a-zA-Z0-9]+$/";
+	
+	if(preg_match($rg_name, $_POST['name']) == 0 || isset($_POST['name']) == false || empty($_POST['name']) == 1) {
+		echo 'arg. wrong';
+		die();
+	}else
+		$name = $_POST['name'];
+
+
 	$email = $_SESSION['email'];
-	$token = uniqid('', true);
+	//$token = uniqid('', true);
+        $hasher = new PasswordHash(8, false);
+        $token = $hasher->HashPassword(rand(5, 1500).$email.time());
+	$token = str_replace("$2a$08$","",$token);
 
 	$insert = "INSERT INTO instance (instanceID, email, Alias) values ('$token','$email', '$name')";
 

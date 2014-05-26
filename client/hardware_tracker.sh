@@ -148,10 +148,13 @@ echo '"fs":{
 DISTRO=$(lsb_release -i | cut -f2 -d:| sed -e 's/^[ \t]*//');
 RELEASE=$(lsb_release -r | cut -f2 -d:| sed -e 's/^[ \t]*//');
 CODENAME=$(lsb_release -c | cut -f2 -d:| sed -e 's/^[ \t]*//');
-
+ARCH=$(uname -p);
+HOSTNAME=$(uname -n);
 
 echo '"os":{
 	"distro": "'$DISTRO'",
 	"release": "'$RELEASE'",
-	"codename": "'$CODENAME'"
+	"codename": "'$CODENAME'",
+	"arch": "'$ARCH'",
+	"hostname": "'$HOSTNAME'"
 }';

@@ -67,6 +67,8 @@ done
 echo  '{
      "timestamp":1,
      "InputDataName": "vmstat",
+     "argSize": "6",
+     "argName":["procs","memory","swap", "io", "system", "cpu"],
 	"date":
 	{
 	"day":"'${date_vet[2]}'",
@@ -78,11 +80,15 @@ echo  '{
 
     "procs"  :
      {
+	"argOpSize":"2",
+	"argOp":["r","b"],
          "r": "'${vet[0]}'",
          "b": "'${vet[1]}'"
      },
      "memory"  :
      {
+	"argOpSize":"4",
+	"argOp":["swp","free", "buff", "cache"],
          "swpd": "'${vet[2]}'",
          "free": "'${vet[3]}'",
          "buff": "'${vet[4]}'",
@@ -90,22 +96,30 @@ echo  '{
      },
      "swap"  :
      {
+	"argOpSize":"2",
+	"argOp":["si","so"],
          "si": "'${vet[6]}'",
          "so": "'${vet[7]}'"
      },
 
      "io"  :
      {
+	"argOpSize":"2",
+	"argOp":["bi","bo"],
          "bi": "'${vet[8]}'",
          "bo": "'${vet[9]}'"
      },
      "system"  :
      {
+	"argOpSize":"2",
+	"argOp":["in","cs"],
          "in": "'${vet[10]}'",
          "cs": "'${vet[11]}'"
      },
      "cpu"  :
      {
+	"argOpSize":"4",
+	"argOp":["us","sy", "id", "wa"],
          "us": "'${vet[12]}'",
          "sy": "'${vet[13]}'",
          "id": "'${vet[14]}'",
@@ -165,6 +179,8 @@ done
 
 echo '
      "network":{
+      	"argOpSize":"5",
+        "argOp":["device","rxkBs","rxSum", "txkBs", "txSum"],
 	"device":['$eth_array'],
 	"rxkBs":['$rx_array'],
 	"rxSum":"'$rx_sum'",
@@ -177,8 +193,4 @@ echo  '"process":{
 		"plist":['
 	./process_tracker.sh
 echo ']},
-'
-echo  '"hardware":{'
-	./hardware_tracker.sh
-echo '},
-'
+' 

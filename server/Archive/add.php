@@ -59,7 +59,7 @@ if (strcmp($tp, "signup") == 0) {
 }
 elseif (strcmp($tp, "add-server") == 0) {
 
-	require("../phpass/phpass-0.3/PasswordHash.php");
+	require("../../phpass/phpass-0.3/PasswordHash.php");
 
 	$rg_name = "/^[a-zA-Z0-9]+$/";
 	

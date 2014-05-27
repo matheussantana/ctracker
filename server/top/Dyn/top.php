@@ -22,7 +22,7 @@ echo'
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
 <head>
-        <title>Streaming</title>
+        <title>Process</title>
 ';
 //css original:
 //        <link rel="stylesheet" href="../../grid_js/css/jq.css" type="text/css" media="print, projection, screen" />
@@ -182,14 +182,13 @@ function drawRow(rowData) {
 var tr;
 var content="<tbody id=\"aaa\">";
     for(var i=0;i<rowData.length;i++){
-  //          var attrName = key;
-//            var attrValue = obj[key];
 
-		if(rowAlternator == false)//Used to alternate the CSS style for each row;
-			rowStyle="odd";
-		else
+//rowAlternator is used to control the style - commented here beucase is causing blink like effect
+//		if(rowAlternator == false)//Used to alternate the CSS style for each row;
+//			rowStyle="odd";
+//		else
 			rowStyle="even";
-		rowAlternator = !rowAlternator;
+//		rowAlternator = !rowAlternator;
 
 		var time = convertTimestamp(rowData[i].timestamp.sec);
 		for(var j=0;j<rowData[i].process.plist.length;j++){

@@ -169,8 +169,23 @@ getjsplot("network", "rxSum", "placeholder6", "updateinterval6",$itoken, $interv
    width:100%;
    background:black;"> <a href="../index.php"><img title="Home" style="position: fixed; bottom: 3px; left: 10px;" src="../pic/home.png" alt="Home"></a> </div>
 
- <a href="../vmstat/Dyn/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="Streaming" style="position: fixed; bottom: 1px; left: 40px;" src="../pic/Play.png" alt="Streaming"></>
- <a href="../vmstat/Static/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="History" style="position: fixed; bottom: 1px; left: 70px;" src="../pic/list.png" alt="History"></>
-<a href="../top/Dyn/top.php"><img title="Process" style="position: fixed; bottom: 2px; left: 103px;" src="../pic/process.png" alt="Process">
+ <a href="../vmstat/Dyn/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="Streaming" style="position: fixed; bottom: 1px; left: 40px;" src="../pic/Play.png" alt="Streaming"/></a>
+ <a href="../vmstat/Static/vmstat.php?itoken=<?echo $itoken;?>&page=1"><img title="History" style="position: fixed; bottom: 1px; left: 70px;" src="../pic/list.png" alt="History"/></a>
+<a href="../top/Dyn/top.php"><img title="Process" style="position: fixed; bottom: 2px; left: 103px;" src="../pic/process.png" alt="Process"></a>
+
+<link href="button.css" rel="stylesheet" type="text/css">
+<a href="#" class="classname" data-reveal-id="myModal_cpu_lik_chart">CPU</a>
+		<div id="myModal_cpu_lik_chart" class="reveal-modal">
+			<h1>CPU</h1>
+			<table><tr><td><a href="#">bla</a></td></tr>
+		</table>
+		<a class="close-reveal-modal">&#215;</a>
+		</div>
+
+
+<a href="#" class="classname"  style="position: fixed; bottom: 3px; left: 210px;" >Mem</a>
+<a href="#" class="classname"  style="position: fixed; bottom: 3px; left: 270px;" >Disk</a>
+<a href="#" class="classname"  style="position: fixed; bottom: 3px; left: 330px;" >Net</a>
+</div>
 </body>
 </html>

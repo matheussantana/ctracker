@@ -113,13 +113,10 @@ cnt[host_index]++;
 			url: scriptUrl,
 			type: \'get\',
 			dataType: \'html\',
-			async: false,
+			async: true,
 			success: function(data) {
 			    result = data;
 			//alert(data);
-			} 
-		     });
-
 			if($.trim(result) != "null" && $.trim(result) != "[0,0]"){//No data found on db.
 					//mount the json string;
 					var j = "[";
@@ -152,6 +149,11 @@ cnt[host_index]++;
 			}else{
 				return res[host_index];
 			}
+			} 
+
+		     });
+			     		return res[host_index];
+
 
 		}
 

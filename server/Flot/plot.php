@@ -179,7 +179,12 @@ function getDataset(){
 $count = 0;
 foreach ($host as $value) {
 
-        echo 'var dt'.$count.'=getRandomData("'.$value["instanceID"].'");
+        echo '
+	if ($("#'.$value['alias'].'_'.$elem.'").is(":checked"))
+		var dt'.$count.'=getRandomData("'.$value["instanceID"].'");
+	else
+                var dt'.$count.'="[0,0]";
+
 
 ';
 $count++;
@@ -215,7 +220,8 @@ var pilha = [];';
 
 
 		echo 'if ($("#'.$value['alias'].'_'.$elem.'").is(":checked"))
-		        pilha.push(datasets["'.$value['alias'].'"]);';
+		        pilha.push(datasets["'.$value['alias'].'"]);
+';
 
         }
 

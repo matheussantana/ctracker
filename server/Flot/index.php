@@ -32,6 +32,89 @@ session_start();
 include "../mysqlconnection.php";
 include_once "../Archive/functions.php";
 
+
+//Validate $_GET['field'] and $_GET['mode']
+if(isset($_GET['field']) == false){
+	$display_field = "all";
+	$display_mode = "";
+}else{
+
+	$display_field = $_GET['field'];
+	if(isset($_GET['mode']))
+		$display_mode = $_GET['mode'];
+
+	switch ($display_field) {
+		case "cpu":
+			switch ($display_mode) {
+				case "idle":
+					break;
+				case "all":
+					break;
+				default:
+					$display_mode="all";
+					break;
+			}
+		        break;
+		case "mem":
+			switch ($display_mode) {
+				case "free":
+					break;
+				case "all":
+					break;
+				default:
+					$display_mode="all";
+					break;
+			}
+		        break;
+		case "disk":
+                        switch ($display_mode) {
+                                case "bo":
+                                        break;
+                                case "all":
+                                        break;
+                                default:
+                                        $display_mode="all";
+                                        break;
+                        }
+			break;
+		case "net":
+                        switch ($display_mode) {
+                                case "txkbs":
+                                        break;
+                                case "rxkbs":
+                                        break;
+                                case "all":
+                                        break;
+                                default:
+                                        $display_mode="all";
+                                        break;
+                        }
+                        break;
+
+		case "swap":
+                        switch ($display_mode) {
+                                case "so":
+                                        break;
+                                case "all":
+                                        break;
+                                default:
+                                        $display_mode="all";
+                                        break;
+                        }
+
+			break;
+		case "all":
+			break;
+
+		default:
+			$display_field="all";
+
+	}
+
+}
+	
+
+
 $itoken = safe((isset($_POST["itoken"])) ? $_POST["itoken"] : $_GET["itoken"]);
 if (isset($_SESSION['email']) == false || isInstanceOwner($_SESSION['email'],$itoken) == false) {//check if user is login;
 
@@ -87,13 +170,18 @@ while ($inst = mysql_fetch_array($inst_query)) {
 	$host_list[$i]= array("instanceID" => $inst['instanceID'], "alias" => $inst['Alias']);
 	$i++;
 }
-
-getjsplot("cpu", "id", "placeholder", "updateinterval",$itoken, $interval,$cpu_opt, $host_list);
-getjsplot("memory", "free", "placeholder2", "updateinterval2",$itoken, $interval, $mem_opt, $host_list);
-getjsplot("io", "bo", "placeholder3", "updateinterval3",$itoken, $interval, $io_opt, $host_list);
-getjsplot("swap", "so", "placeholder4", "updateinterval4",$itoken, $interval, $swap_opt, $host_list);
-getjsplot("network", "txSum", "placeholder5", "updateinterval5",$itoken, $interval, $net_txSum, $host_list);
-getjsplot("network", "rxSum", "placeholder6", "updateinterval6",$itoken, $interval, $net_rxSum, $host_list);
+if(($display_field=="cpu" && $display_mode=="idle") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all"))
+	getjsplot("cpu", "id", "placeholder", "updateinterval",$itoken, $interval,$cpu_opt, $host_list);
+if(($display_field=="mem" && $display_mode=="free") || $display_field=="all" || ($display_field=="mem" && $display_mode=="all"))
+	getjsplot("memory", "free", "placeholder2", "updateinterval2",$itoken, $interval, $mem_opt, $host_list);
+if(($display_field=="disk" && $display_mode=="bo") || $display_field=="all" || ($display_field=="disk" && $display_mode=="all"))
+	getjsplot("io", "bo", "placeholder3", "updateinterval3",$itoken, $interval, $io_opt, $host_list);
+if(($display_field=="swap" && $display_mode=="so") || $display_field=="all" || ($display_field=="swap" && $display_mode=="all"))
+	getjsplot("swap", "so", "placeholder4", "updateinterval4",$itoken, $interval, $swap_opt, $host_list);
+if(($display_field=="net" && $display_mode=="txkbs") || $display_field=="all" || ($display_field=="net" && $display_mode=="all"))
+	getjsplot("network", "txSum", "placeholder5", "updateinterval5",$itoken, $interval, $net_txSum, $host_list);
+if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" || ($display_field=="net" && $display_mode=="all"))
+	getjsplot("network", "rxSum", "placeholder6", "updateinterval6",$itoken, $interval, $net_rxSum, $host_list);
 ?>
 
 </head>
@@ -106,56 +194,61 @@ getjsplot("network", "rxSum", "placeholder6", "updateinterval6",$itoken, $interv
 	</div>*/?>
 
 	<div id="content">
+		<?php if(($display_field=="cpu" && $display_mode=="idle") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all")){?>
 		<p>CPU - id: Time spent idle(Percentage)</p>
 		<?php getFilter($cpu_opt, $host_list, $itoken); ?>
 		<div class="demo-container">
 			<div id="placeholder" class="demo-placeholder"></div>
 		</div>
+		<?}?>
 
 <!--		<p>You can update a chart periodically to get a real-time effect by using a timer to insert the new data in the plot and redraw it.</p> -->
 
 <!--		<p>Time between updates: <input id="updateInterval" type="text" value="" style="text-align: right; width:5em"> milliseconds</p> -->
-
+		<?php if(($display_field=="mem" && $display_mode=="free" )|| $display_field=="all" || ($display_field=="mem" && $display_mode=="all")){?>
 		<p>Memory - free</p>
 		<?php getFilter($mem_opt, $host_list, $itoken); ?>
 
 		<div class="demo-container">
 			<div id="placeholder2" class="demo-placeholder"></div>
 		</div>
+		<?} ?>
 
+		<?php if(($display_field=="disk" && $display_mode=="bo") || $display_field=="all" || ($display_field=="disk" && $display_mode=="all")){?>
 		<p>Disk - bo: Blocks sent to a block device (blocks/s)</p>
 		<?php getFilter($io_opt, $host_list, $itoken); ?>
 
 		<div class="demo-container">
 			<div id="placeholder3" class="demo-placeholder"></div>
 		</div>
+		<?}?>
 
-		<p>Swap - so: Amount of memory swapped to disk (/s). </p>
-		<?php getFilter($swap_opt, $host_list, $itoken); ?>
-
-		<div class="demo-container">
-			<div id="placeholder4" class="demo-placeholder"></div>
-		</div>
-
+		<?php if(($display_field=="net" && $display_mode=="txkbs") || $display_field=="all" || ($display_field=="net" && $display_mode=="all")){?>
 		<p>Network - txkB/s: Total number of kilobytes transmitted per second. </p>
 		<?php getFilter($net_txSum, $host_list, $itoken); ?>
 
 		<div class="demo-container">
 			<div id="placeholder5" class="demo-placeholder"></div>
 		</div>
+		<?}?>
 
+		<?php if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" || ($display_field=="net" && $display_mode=="all")){?>
 		<p>Network - rxkB/s: Total number of kilobytes received per second. </p>
 		<?php getFilter($net_rxSum, $host_list, $itoken); ?>
 
 		<div class="demo-container">
 			<div id="placeholder6" class="demo-placeholder"></div>
 		</div>
+		<?}?>
 
+		<?php if(($display_field=="swap" && $display_mode=="so") || $display_field=="all" || ($display_field=="swap" && $display_mode=="all")){?>
+		<p>Swap - so: Amount of memory swapped to disk (/s). </p>
+		<?php getFilter($swap_opt, $host_list, $itoken); ?>
 
-
-
-
-
+		<div class="demo-container">
+			<div id="placeholder4" class="demo-placeholder"></div>
+		</div>
+		<?}?>
 	</div>
 
 <?/*	<div id="footer">
@@ -174,18 +267,59 @@ getjsplot("network", "rxSum", "placeholder6", "updateinterval6",$itoken, $interv
 <a href="../top/Dyn/top.php"><img title="Process" style="position: fixed; bottom: 2px; left: 103px;" src="../pic/process.png" alt="Process"></a>
 
 <link href="button.css" rel="stylesheet" type="text/css">
-<a href="#" class="classname" data-reveal-id="myModal_cpu_lik_chart">CPU</a>
-		<div id="myModal_cpu_lik_chart" class="reveal-modal">
-			<h1>CPU</h1>
-			<table><tr><td><a href="#">bla</a></td></tr>
-		</table>
-		<a class="close-reveal-modal">&#215;</a>
-		</div>
+<a href="#" class="classname" data-reveal-id="myModal_cpu_link_chart">CPU</a>
+<div id="myModal_cpu_link_chart" class="reveal-modal">
+	<h1>CPU</h1>
+	<table>
+		<tr><td><a href="?field=cpu&mode=idle&itoken=<?echo $itoken;?>&interval=def">id: Time spent idle</a></td></tr>
+                <tr><td><a href="?field=cpu&mode=all&itoken=<?echo $itoken;?>&interval=def">display all cpu charts</a></td></tr>
+	</table>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
 
+<a href="#" class="classname" data-reveal-id="myModal_mem_link_chart" style="position: fixed; bottom: 3px; left: 210px;" >Mem</a>
+<div id="myModal_mem_link_chart" class="reveal-modal">
+	<h1>Memory</h1>
+	<table>
+		<tr><td><a href="?field=mem&mode=free&itoken=<?echo $itoken;?>&interval=def">free: the amount of idle memory</a></td></tr>
+                <tr><td><a href="?field=mem&mode=all&itoken=<?echo $itoken;?>&interval=def">display all memory charts</a></td></tr>
+	</table>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
 
-<a href="#" class="classname"  style="position: fixed; bottom: 3px; left: 210px;" >Mem</a>
-<a href="#" class="classname"  style="position: fixed; bottom: 3px; left: 270px;" >Disk</a>
-<a href="#" class="classname"  style="position: fixed; bottom: 3px; left: 330px;" >Net</a>
+<a href="#" class="classname"  data-reveal-id="myModal_disk_link_chart" style="position: fixed; bottom: 3px; left: 270px;" >Disk</a>
+<div id="myModal_disk_link_chart" class="reveal-modal">
+	<h1>Disk</h1>
+	<table>
+		<tr><td><a href="?field=disk&mode=bo&itoken=<?echo $itoken;?>&interval=def">bo: Blocks sent to a block device (blocks/s)</a></td></tr>
+                <tr><td><a href="?field=disk&mode=all&itoken=<?echo $itoken;?>&interval=def">display all disk charts</a></td></tr>
+	</table>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<a href="#" class="classname" data-reveal-id="myModal_net_link_chart" style="position: fixed; bottom: 3px; left: 330px;" >Net</a>
+<div id="myModal_net_link_chart" class="reveal-modal">
+	<h1>Network</h1>
+	<table>
+		<tr><td><a href="?field=net&mode=txkbs&itoken=<?echo $itoken;?>&interval=def">txkB/s: Total number of kilobytes transmitted per second</a></td></tr>
+		<tr><td><a href="?field=net&mode=rxkbs&itoken=<?echo $itoken;?>&interval=def">rxkB/s: Total number of kilobytes received per second</a></td></tr>
+		<tr><td><a href="?field=net&mode=all&itoken=<?echo $itoken;?>&interval=def">display all network charts</a></td></tr>
+	</table>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<a href="#" class="classname"  data-reveal-id="myModal_swap_link_chart" style="position: fixed; bottom: 3px; left: 390px;" >Swap</a>
+<div id="myModal_swap_link_chart" class="reveal-modal">
+	<h1>Swap</h1>
+	<table>
+		<tr><td><a href="?field=swap&mode=so&itoken=<?echo $itoken;?>&interval=def">so: Amount of memory swapped to disk (/s)</a></td></tr>
+                <tr><td><a href="?field=swap&mode=all&itoken=<?echo $itoken;?>&interval=def">display all swap charts</a></td></tr>
+	</table>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<a href="?field=all&itoken=<?echo $itoken;?>&interval=def" class="classname" style="position: fixed; bottom: 3px; left: 450px;" >All</a>
+
 </div>
 </body>
 </html>

@@ -146,7 +146,6 @@ cnt[host_index]++;
 
 				
 			}
-//alert(JSON.stringify(res[host_index]));
 			//Since we are using async message we need to sort the res array because we cant be sure that the elements are in the rigth position.
 			 res[host_index].sort(function(a, b){return a[0]-b[0]});
 			} 

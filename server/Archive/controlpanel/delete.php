@@ -40,7 +40,7 @@ if(strcmp($tp, "delete-server") == 0){
 	        $delete = "DELETE FROM instance WHERE instanceID='$sid' AND email='$email'";
 		$criteria = array("InstanceToken" => $sid);
 
-	        $collection->remove($criteria,true));
+	        $collection->remove($criteria,array("w" => 1));
 	}else{
 		$delete = '';
 	}

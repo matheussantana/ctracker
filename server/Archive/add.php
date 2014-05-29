@@ -61,7 +61,8 @@ elseif (strcmp($tp, "add-server") == 0) {
 
 	require("../../phpass/phpass-0.3/PasswordHash.php");
 
-	$rg_name = "/^[a-zA-Z0-9]+$/";
+//	$rg_name = "/^[a-zA-Z0-9]+$/";
+	$rg_name = "/[a-zA-Z0-9\s\p{P}]/";
 	
 	if(preg_match($rg_name, $_POST['name']) == 0 || isset($_POST['name']) == false || empty($_POST['name']) == 1) {
 		echo 'arg. wrong';

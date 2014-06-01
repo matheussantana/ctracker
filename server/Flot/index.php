@@ -147,6 +147,14 @@ if(isset($_POST['interval']) == false || $_POST['interval'] != "def"){//sanity
 	<script language="javascript" type="text/javascript" src="jquery.flot.js"></script>
 	<script language="javascript" type="text/javascript" src="jquery.flot.time.js"></script>
 
+<script>
+jQuery(window).load(function(){
+//loading box appears
+//jQuery('#loading').fadeOut(6000);
+jQuery('#loading')
+});
+</script>
+        <link href="loading.css" rel="stylesheet" type="text/css">
 
 <!--reveal model box-->
 		<script type="text/javascript" src="./revealmodalbox/jquery.reveal.js"></script>
@@ -192,7 +200,7 @@ if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" ||
 //added custom css inline
 		<h2 style="border-bottom: 0px;">Real-time updates</h2>
 	</div>*/?>
-
+<div id="loading"></div>
 	<div id="content">
 		<?php if(($display_field=="cpu" && $display_mode=="idle") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all")){?>
 		<p>CPU - id: Time spent idle(Percentage)</p>

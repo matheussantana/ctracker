@@ -117,6 +117,7 @@ cnt[host_index]++;
 			success: function(data) {
 			    result = data;
 			//alert(data);
+
 			if($.trim(result) != "null" && $.trim(result) != "[0,0]"){//No data found on db.
 					//mount the json string;
 					var j = "[";
@@ -143,6 +144,9 @@ cnt[host_index]++;
 					}
 					res[host_index] = tmp_res;
 					}
+					//Remove loading box.
+					$("#loading").fadeOut(7000);
+
 
 				
 			}

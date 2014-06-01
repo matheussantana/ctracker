@@ -1,0 +1,11 @@
+#loading {
+/*http://www.gordonmac.com/adding-a-page-loading-box-with-jquery/*/
+background:#000 url(../pic/ajax-loader.gif) no-repeat center center;
+height: 50px;
+width: 50px;
+position: fixed;
+left: 50%;
+top: 50%;
+margin: -25px 0 0 -25px;
+z-index: 1000;
+}

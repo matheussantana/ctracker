@@ -55,7 +55,7 @@ include_once "functions.php";
 
 	<!-- Main HTML -->
 	
-<body style="background-image: url(http://192.168.1.112/Archive/controlpanel/images/bg.png); 
+<body style="background-image: url(../Archive/controlpanel/images/bg.png); 
 	background-position: left top;
 	background-repeat: repeat;">
 

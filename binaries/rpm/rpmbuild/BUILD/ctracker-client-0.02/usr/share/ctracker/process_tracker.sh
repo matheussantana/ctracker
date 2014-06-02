@@ -16,13 +16,45 @@ CONFIG_FOLDER="ctracker.d/";
 count=0;
 function print_output(){
 
-	top -b -d 0 -n 1 -p $pid | grep $pid > /tmp/procinfo;
-	cpu=$(cat /tmp/procinfo | awk '{print $9}');
-	mem=$(cat /tmp/procinfo | awk '{print $10}');
-	etime=$(ps -p $pid -o etime | grep -v ELAPSED| tr -d ' ');
-	json[$count]="{\"name\": \"$name\", \"status\": \"Running\", \"pid\": \"$pid\", \"cpu\":\"$cpu\",  \"mem\": \"$mem\", \"time\":\"$etime\"}"
+	#check if there is any process with the given $pattern using any CPU rigth now.
+	pidstat_list=$(pidstat 1 1 -l | grep -v grep | grep $pattern);
+#echo "$pidstat_list"
+	if [[ ! -z $pidstat_list ]]
+	then
 
-	count=$((count+1));
+
+		pid_list=$(echo "$pidstat_list" | awk '{print $(NF-6)}');
+		cpu_list=$(echo "$pidstat_list" | awk '{print $(NF-2)}');
+#	top -b -d 0 -n 1 -p $pid | grep $pid > /tmp/procinfo;
+#	cpu=$(cat /tmp/procinfo | awk '{print $9}');
+#	mem=$(cat /tmp/procinfo | awk '{print $10}');
+#	etime=$(ps -p $ppid -o etime | grep -v ELAPSED| tr -d ' ');
+		pid_array=($pid_list);
+		cpu_array=($cpu_list);
+	index=0;
+	for i in "${pid_array[@]}"
+	do
+		ppid=${pid_array[$index]};
+		pmem=$(pmap -x $ppid | grep total | column -t | awk '{print $3}')
+		etime=$(ps -p $ppid -o etime | grep -v ELAPSED| tr -d ' ');
+
+		pcpu=${cpu_array[$index]};
+		pcpu=${pcpu//,/.};
+
+		json[$count]="{\"name\": \"$name\", \"status\": \"Running\", \"pid\": \"$ppid\", \"cpu\":\"$pcpu\",  \"mem\": \"$pmem\", \"time\":\"$etime\"}"
+		index=$((index+1));
+		count=$((count+1));
+	done	
+	else
+		pmem=$(pmap -x $pid | grep total | column -t | awk '{print $3}')
+		etime=$(ps -p $pid -o etime | grep -v ELAPSED| tr -d ' ');
+		json[$count]="{\"name\": \"$name\", \"status\": \"Running\", \"pid\": \"$pid\", \"cpu\":\"0.0\",  \"mem\": \"$pmem\", \"time\":\"$etime\"}"
+	        count=$((count+1));
+
+	fi
+
+
+
 
 }
 
@@ -42,6 +74,8 @@ for config in $processconfiglist; do
 		json[$count]="{\"name\": \"$name\", \"status\": \"Disabled\"}"
 		count=$((count+1));
 	else
+		#check if there is any process running under the $pattern value.
+
 		pid=$(ps aux | grep "$pattern" | grep -v "grep ${pattern}" | head -n 1|  awk '{print $2}');
 #cho $pid
 #logger $pid;
@@ -79,25 +113,25 @@ done
 function json_format(){
 	i=0;
 	size=${#json[@]};
-	size=$((size-1));
-	while [ $i != $size ]
-	do
 
-		json[$i]=${json[$i]}","
-		(( i++ ))
-	done
+	if [ "$size" -gt 0 ]
+	then
+		size=$((size-1));
+		while [ $i != $size ]
+		do
 
-	json[$i]=${json[$i]}
+			json[$i]=${json[$i]}","
+			(( i++ ))
+		json[$i]=${json[$i]}
+		done
+		echo ${json[*]}
+	fi
+
 }
 
-#for pid in $plist; do
-
-	#echo $pid
 
 
-#done
-#check config files
+
 
 json_format
-echo ${json[*]}
-#done
+

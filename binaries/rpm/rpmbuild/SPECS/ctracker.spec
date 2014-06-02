@@ -43,12 +43,14 @@ rm -rf %{buildroot}
 #%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 #%{_bindir}/*
 /bin/ctracker
+/etc/init.d/ctracker
 /usr/share/ctracker/ctracker.d/dhclient
 /usr/share/ctracker/ctracker.d/sshd
+/usr/share/ctracker/ctracker.d/httpd
 /usr/share/ctracker/ethx.tmp
 /usr/share/ctracker/hardware_tracker.sh
 /usr/share/ctracker/info.conf
-/usr/share/ctracker/main
+/usr/share/ctracker/ctracker-main
 /usr/share/ctracker/process_tracker.sh
 /usr/share/ctracker/scripts/sshd.sh
 /usr/share/ctracker/vmstat_output.txt

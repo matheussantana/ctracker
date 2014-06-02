@@ -2,4 +2,4 @@
 
 cd /usr/share/ctracker
 #./cloud >> /dev/null &
-nohup ./main >/dev/null 2>&1 &
+nohup ./ctracker-main >/dev/null 2>&1 &

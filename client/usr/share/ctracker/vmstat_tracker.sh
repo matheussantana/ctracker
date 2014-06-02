@@ -28,8 +28,8 @@
  #
  #############################################################################/
 
-sentence=`vmstat -SM 1 2 | column -t | grep [0-9] > vmstat_output.txt`
-sentence=`tail -n1 vmstat_output.txt`
+sentence=`vmstat -SM 1 2 | column -t | grep [0-9] > /tmp/vmstat_output.txt`
+sentence=`tail -n1 /tmp/vmstat_output.txt`
 #sentence=$1
 count=0
 #count=$(($count + 1))

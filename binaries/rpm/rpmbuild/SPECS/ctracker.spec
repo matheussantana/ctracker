@@ -47,15 +47,13 @@ rm -rf %{buildroot}
 /usr/share/ctracker/ctracker.d/dhclient
 /usr/share/ctracker/ctracker.d/sshd
 /usr/share/ctracker/ctracker.d/httpd
-/usr/share/ctracker/ethx.tmp
 /usr/share/ctracker/hardware_tracker.sh
 /usr/share/ctracker/info.conf
 /usr/share/ctracker/ctracker-main
 /usr/share/ctracker/process_tracker.sh
 /usr/share/ctracker/scripts/sshd.sh
-/usr/share/ctracker/vmstat_output.txt
 /usr/share/ctracker/vmstat_tracker.sh
 
 %changelog
-* Thu Apr 24 2009  Elia Pinto <devzero2000@rpm5.org> 1.0-1
+* Mon Jun 2 2014  Matheus Santana <matheusslima@yahoo.com.br> 0.02-1
 - First Build

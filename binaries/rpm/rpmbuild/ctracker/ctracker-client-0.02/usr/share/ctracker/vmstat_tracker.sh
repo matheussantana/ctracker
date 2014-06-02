@@ -28,8 +28,8 @@
  #
  #############################################################################/
 
-sentence=`vmstat -SM 1 2 | column -t | grep [0-9] > vmstat_output.txt`
-sentence=`tail -n1 vmstat_output.txt`
+sentence=`vmstat -SM 1 2 | column -t | grep [0-9] > /tmp/vmstat_output.txt`
+sentence=`tail -n1 /tmp/vmstat_output.txt`
 #sentence=$1
 count=0
 #count=$(($count + 1))
@@ -115,8 +115,8 @@ echo  '{
 
 #device list
 #sar  -n DEV 1 1 | grep -v Average | tail -n +4 | column -t | awk '{print $(NF-3)}
-ethx=`sar -n DEV 1 1 | grep -v Average | tail -n +4 | column -t > ethx.tmp`;
-ethx=`cat ethx.tmp | awk '{print $(NF-7)}'`;
+ethx=`sar -n DEV 1 1 | grep -v Average | tail -n +4 | column -t > /tmp/ethx.tmp`;
+ethx=`cat /tmp/ethx.tmp | awk '{print $(NF-7)}'`;
 ethx_vet=($ethx);
 size=${#ethx_vet[@]};
 size=$((size-1));
@@ -130,7 +130,7 @@ for eth in $ethx; do
 done
 
 #download
-ethx=`cat ethx.tmp | awk '{print $(NF-4)}'`;
+ethx=`cat /tmp/ethx.tmp | awk '{print $(NF-4)}'`;
 ethx_vet=($ethx);
 size=${#ethx_vet[@]};
 size=$((size-1));
@@ -147,7 +147,7 @@ for rx in $ethx; do
 done
 
 #upload
-ethx=`cat ethx.tmp | awk '{print $(NF-3)}'`;
+ethx=`cat /tmp/ethx.tmp | awk '{print $(NF-3)}'`;
 ethx_vet=($ethx);
 size=${#ethx_vet[@]};
 size=$((size-1));

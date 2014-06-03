@@ -63,7 +63,7 @@ elif [ "$1" == "git" ];then
 #	git commit -m "old binaries"
 #	git push origin master
 
-	mkdir rpm
+#	mkdir rpm
 	cd rpm
 #	tar -zcvf rpmbuild.tar.gz ~/rpmbuild
 	

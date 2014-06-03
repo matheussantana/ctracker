@@ -1,4 +1,0 @@
-name="sshd"
-action="service sshd start"
-pattern="/usr/sbin/sshd"
-enable=1

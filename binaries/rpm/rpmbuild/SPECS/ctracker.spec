@@ -10,7 +10,8 @@ Name: ctracker-client
 Version: 0.02
 Release: 1
 License: GPL+
-Group: Development/Tools
+Group: Applications/System
+Requires: curl sysstat procps redhat-lsb-core
 BuildArch: noarch
 SOURCE0 : %{name}-%{version}.tar.gz
 URL: http://toybinprog.company.com/

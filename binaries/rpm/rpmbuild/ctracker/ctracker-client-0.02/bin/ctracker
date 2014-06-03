@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /usr/share/ctracker
+#./cloud >> /dev/null &
+nohup ./ctracker-main >/dev/null 2>&1 &

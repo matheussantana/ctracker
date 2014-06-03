@@ -5,7 +5,7 @@
 %define          debug_package %{nil}
 %define        __os_install_post %{_dbpath}/brp-compress
 
-Summary: A very simple toy bin rpm package
+Summary: Cloud Computing Monitoring Tool - Client
 Name: ctracker-client
 Version: 0.02
 Release: 1
@@ -14,12 +14,14 @@ Group: Applications/System
 Requires: curl sysstat procps redhat-lsb-core
 BuildArch: noarch
 SOURCE0 : %{name}-%{version}.tar.gz
-URL: http://toybinprog.company.com/
+Packager: Matheus Santana <matheusslima@yahoo.com.br>
+URL: http://cloudtracker.org/
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
-%{summary}
+#%{summary}
+Ctracker is a free and open source web monitoring tool used to keep track of your remote linux machines in real time. You can get metrics and graphs that allow you to see how much your servers are consuming. This kind of tool is specially important in a cloud-like environment(for both public or private).
 
 %prep
 %setup -q

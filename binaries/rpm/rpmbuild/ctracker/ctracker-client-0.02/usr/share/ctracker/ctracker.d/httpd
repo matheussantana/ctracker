@@ -1,4 +1,0 @@
-name="httpd"
-action="service httpd start"
-pattern="/usr/sbin/httpd"
-enable=0

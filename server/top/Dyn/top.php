@@ -230,7 +230,7 @@ echo '</head>
 				<th>Process</th>
 				<th>PID</th>
 				<th>Status</th>
-				<th>CPU</th>
+				<th>CPU(%)</th>
 				<th>Memory</th>
 				<th>Time running</th>
 			</tr>

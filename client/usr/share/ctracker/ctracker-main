@@ -32,15 +32,24 @@
 #reading config file
 . info.conf;
 
+#lock mutex
 
-for (( ; ; ))
-do
-	data=$(./vmstat_tracker.sh);
-	data="$data
+if mkdir /tmp/ctracker.lock; then
 
-	 \"InstanceToken\":\"$ITOKEN\"}
-	";
-	curl --data 'data='"$data" $SERVERURL
+	for (( ; ; ))
+	do
 
-	sleep $TIMESAMPLES
-done
+		data=$(./vmstat_tracker.sh);
+		data="$data
+
+		 \"InstanceToken\":\"$ITOKEN\"}
+		";
+		curl --data 'data='"$data" $SERVERURL
+
+		sleep $TIMESAMPLES
+	done
+else
+
+	echo "Lock failed - exit" >&2
+	exit 1
+fi

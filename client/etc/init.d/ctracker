@@ -45,6 +45,7 @@ stop() {
 # code to stop app comes here 
 	echo "Stopping ctracker"
 	killall ctracker-main
+	rm -rf /tmp/ctracker.lock
 }
 
 status() {

@@ -87,7 +87,7 @@ function ValidateJSON($json){
 }
 
 $data = $_POST['data'];
-//echo $data;
+echo $data;
 try{
 	$json = ValidateJSON($data);
 

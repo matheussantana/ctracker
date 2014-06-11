@@ -39,6 +39,10 @@ if (strcmp($tp, "Register") == 0) {
 echo '          <p style="padding: 10px;"> Register </p>';
 
 }
+elseif (strcmp($tp, "add-alert") == 0) {
+        $action = "index.php?pg=../add";
+
+}
 elseif (strcmp($tp, "add-server") == 0) {
 	$action = "index.php?pg=../add";
 }
@@ -158,6 +162,13 @@ if (strcmp($tp, "Register") == 0) {
 		<input type="hidden" name="tp" value="add-server"/>
 		
 </div>
+
+<?
+}elseif (strcmp($tp, "add-alert") == 0) {
+
+        include "../alert/options.php";
+
+?>
 <?}?>
 		</form>
 

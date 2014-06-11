@@ -48,7 +48,7 @@ if (strcmp($tp, "view-servers") == 0) { ?>
 					<tr>
 						<td><?echo $inst['instanceID'];?></td>
 						<td><a rel="facebox" href="../../hardware/Static/dump_hardware.php?itoken=<? echo $inst['instanceID']; ?>"><?echo $inst['Alias'];?></a></td>
-						<td><a href="../../vmstat/Dyn/vmstat.php?itoken=<? echo $inst['instanceID']."&page=1"; ?>">Streaming</a> | <a href="../../vmstat/Static/vmstat.php?itoken=<? echo $inst['instanceID']."&page=1"; ?>">History</a> | <a href="../../Flot/index.php?itoken=<? echo $inst['instanceID']; ?>&interval=def">Chart</a> |  <a href="index.php?pg=delete&tp=delete-server&sid=<? echo $inst['instanceID']; ?>" onclick="return confirm('Are you sure you want to delete this item?');">Remove</a></td>
+						<td><a href="../../vmstat/Dyn/vmstat.php?itoken=<? echo $inst['instanceID']."&page=1"; ?>">Streaming</a> | <a href="../../vmstat/Static/vmstat.php?itoken=<? echo $inst['instanceID']."&page=1"; ?>">History</a> | <a href="../../Flot/index.php?itoken=<? echo $inst['instanceID']; ?>&interval=def">Chart</a> |  <a rel="facebox" href="../form.php?tp=add-alert&itoken=<? echo $inst['instanceID']; ?>">Alert</a> |  <a href="index.php?pg=delete&tp=delete-server&sid=<? echo $inst['instanceID']; ?>" onclick="return confirm('Are you sure you want to delete this item?');">Remove</a></td>
 	
 					</tr>
 		<?}?>

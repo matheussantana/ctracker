@@ -42,7 +42,7 @@ while ($user = mysql_fetch_array($user_query)) {
 
 
 //list enabled alerts;
-$query = "SELECT * FROM `instance_alert` WHERE `option-status`=1";
+$query = "SELECT a.* FROM `instance_alert` as a, instance as b WHERE `option-status`=1 AND a.instanceID = b.instanceID AND b.email='".$user['email']."'";
 $inst_query = mysql_query($query);
 $date = date('m/d/Y h:i:s a', time());
 $message = "Ctracker<p>".$date."<p>Alerts:<p><p>";

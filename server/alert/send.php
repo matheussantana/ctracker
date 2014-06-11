@@ -36,6 +36,11 @@ function compare($filter, $data, $operator){
 
 }
 
+
+$user_query = mysql_query("SELECT * FROM instance GROUP BY email");
+while ($user = mysql_fetch_array($user_query)) {
+
+
 //list enabled alerts;
 $query = "SELECT * FROM `instance_alert` WHERE `option-status`=1";
 $inst_query = mysql_query($query);
@@ -264,11 +269,11 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	}
 }
 
-echo $message;
+//echo $message;
 //send it!
 require './PHPMailer/connection.php';
 
-$mail->addAddress('matheusslima@yahoo.com.br', 'Joe User');     // Add a recipient
+$mail->addAddress($user['email'], $user['Alias']);     // Add a recipient
 //$mail->addAddress('ellen@example.com');               // Name is optional
 //$mail->addReplyTo('info@example.com', 'Information');
 //$mail->addCC('cc@example.com');
@@ -285,10 +290,10 @@ $mail->Body    = $message;
 $mail->AltBody = $message;
 
 if(!$mail->send()) {
-    echo 'Message could not be sent.';
+    echo 'Message could not be sent to: '.$user['email']."<p>";
     echo 'Mailer Error: ' . $mail->ErrorInfo;
 } else {
-    echo 'Message has been sent';
+    echo 'Message has been sent to: '.$user['email']."<p>";
 }
-
+}
 ?>

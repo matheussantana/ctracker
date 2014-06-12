@@ -393,6 +393,7 @@ function input($name, $min, $max, $value, $select){
 		<td><select  name="process-status">
 			<option value="Stopped"<? if($process_status == "Stopped") echo 'selected';?>>Stopped</option> 
 			<option value="Running" <? if($process_status == "Running") echo 'selected';?>>Running</option>
+			<option value="Sleeping" <? if($process_status == "Running") echo 'selected';?>>Running</option>
 		</select>
 		<select name="op-process-status">
 

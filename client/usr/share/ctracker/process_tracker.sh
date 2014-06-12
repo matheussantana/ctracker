@@ -68,6 +68,7 @@ function print_output(){
 processconfiglist=$(ls $CONFIG_FOLDER);
 for config in $processconfiglist; do
 
+	patterncmd="";
 	#reading config file
 	. $CONFIG_FOLDER/$config
 #	pid=$(cat $path)
@@ -82,24 +83,28 @@ for config in $processconfiglist; do
 	else
 		#check if there is any process running under the $pattern value.
 
-		pid_list=$(ps aux | grep "$pattern" | grep -v "grep" | awk '{print $2}');
-		if [[ -z "$pid_list" ]]; then
-			#take action
-			#echo 'action';
-			{ $action | logger; } &
-			wait
-
-
-			 json[$count]="{\"name\": \"$name\", \"status\": \"Stopped\"}"
-			count=$((count+1));
-
+		if [ -n "$patterncmd" ]; then
+			#trap "$patterncmd" SIGHUP SIGINT SIGTERM ERR
+			exit_status=$($patterncmd)
+			if [ "$exit_status" = "true" ]; then
+				json[$count]="{\"name\": \"$name\", \"status\": \"Sleeping\"}"
+				count=$((count+1));
+			fi
 		else
-#			top -b -d 0 -n 1 -p $pid | tail -n2 > /tmp/procinfo;
-#			cpu=$(cat /tmp/procinfo | awk '{print $9}');
-#			mem=$(cat /tmp/procinfo | awk '{print $10}');
-#			etime=$(cat /tmp/procinfo | awk '{print $11}');
-#			echo $name $pid CPU:$cpu  MEM: $mem TIME:$etime
-			print_output
+			pid_list=$(ps aux | grep "$pattern" | grep -v "grep" | awk '{print $2}');
+			if [[ -z "$pid_list" ]]; then
+				#take action
+				#echo 'action';
+				{ $action | logger; } &
+				wait
+
+
+				 json[$count]="{\"name\": \"$name\", \"status\": \"Stopped\"}"
+				count=$((count+1));
+
+			else
+				print_output
+			fi
 		fi
 	fi
 	#dplist="$plist  $tmp";

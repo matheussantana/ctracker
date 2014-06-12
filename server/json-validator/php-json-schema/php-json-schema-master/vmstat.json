@@ -210,7 +210,7 @@
 						},
 						"status":{
 							"type":"string",
-		                        	        "enum" :["Running","Disabled","Stopped"],
+		                        	        "enum" :["Running","Disabled","Stopped","Sleeping"],
 							"required":true
 						},
 						"pid":{

@@ -222,10 +222,16 @@ while ($inst= mysql_fetch_array($inst_query)) {
 
 			$tmp_msg = "Processes<p>";
 			$changed = false;
-			if($last_process_status == "Stopped"){
+			if($last_process_status == "Stopped" && $process_status == "Stopped"){
 				$tmp_msg = $tmp_msg."Name: ".$last_process_name." Status: ".$last_process_status.'<p>';
 				$changed = true;
-			}else{
+			}elseif($last_process_status == "Sleeping" && $process_status == "Sleeping"){
+
+                                $tmp_msg = $tmp_msg."Name: ".$last_process_name." Status: ".$last_process_status.'<p>';
+                                $changed = true;
+
+			} 
+			elseif($last_process_status == "Running" && $process_status =="Running"){
 				$last_process_cpu = $p['cpu'];
 				$last_process_mem = $p['mem'];
 				$last_process_pid = $p['pid'];
@@ -271,7 +277,7 @@ while ($inst= mysql_fetch_array($inst_query)) {
 
 //echo $message;
 //send it!
-require './PHPMailer/connection.php';
+require './PHPMailer/connection_stmp_no_auth.php';
 
 $mail->addAddress($user['email'], $user['Alias']);     // Add a recipient
 //$mail->addAddress('ellen@example.com');               // Name is optional

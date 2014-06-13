@@ -86,12 +86,39 @@ elseif (strcmp($tp, "add-alert") == 0) {
 	$cpu_sy = $_POST['cpu-sy'];
 	$cpu_id = $_POST['cpu-id'];
 	$cpu_wa	= $_POST['cpu-wa'];
+
+        if(!validatesAsInt($proc_r) || !validatesAsInt($proc_b) || !validatesAsInt($mem_swpd) || !validatesAsInt($mem_free) || !validatesAsInt($mem_buff) || !validatesAsInt($mem_cache) ||!validatesAsInt($swap_si) || !validatesAsInt($swap_so)  || !validatesAsInt($io_bi) || !validatesAsInt($io_bo) || !validatesAsInt($system_in) || !validatesAsInt($system_cs) || !validatesAsInt($cpu_us) || !validatesAsInt($cpu_sy) || !validatesAsInt($cpu_id) || !validatesAsInt($cpu_wa) ){
+                echo 'arg. wrong';
+		die();}
+
 	$net_rxSum = $_POST['net-rxSum'];
 	$net_txSum = $_POST['net-txSum'];
+
+	if(!validatesAsFloat($net_rxSum) || !validatesAsFloat($net_txSum)){
+                echo 'arg. wrong';
+		die();}
+
 	$process_status = $_POST['process-status'];
+	if((strcmp($process_status,"Running") == 0 && strcmp($process_status,"Stopped") == 0 && strcmp($process_status,"Sleeping") == 0 && strcmp($process_status,"Disabled") == 0)){
+                echo 'arg. wrong';
+		die();}
+
 	$process_cpu = $_POST['process-cpu'];
+        if(!validatesAsFloat($process_cpu)){
+                echo 'arg. wrong';
+		die();}
+
 	$process_mem = $_POST['process-mem'];
+
+	if(!validatesAsInt($process_mem)){
+                echo 'arg. wrong';
+		die();}
+
 	$fs_use = $_POST['fs-used'];
+	if(!validatesAsFloat(str_replace("%","",$fs_use))){
+                echo 'arg. wrong';
+		die();}
+
 	$op_proc_r = $_POST['op-proc-r'];
 	$op_proc_b = $_POST['op-proc-b'];
 	$op_mem_swpd = $_POST['op-mem-swpd'];
@@ -115,6 +142,9 @@ elseif (strcmp($tp, "add-alert") == 0) {
 	$op_process_mem = $_POST['op-process-mem'];
 	$op_fs_used = $_POST['op-fs-used'];
 
+	if(!validateAlertFilterOption($op_proc_r) || !validateAlertFilterOption($op_proc_b) || !validateAlertFilterOption($op_mem_swpd) || !validateAlertFilterOption($op_mem_free) || !validateAlertFilterOption($op_mem_buff) || !validateAlertFilterOption($op_mem_cache) ||  !validateAlertFilterOption($op_swap_si) || !validateAlertFilterOption($op_swap_so) || !validateAlertFilterOption($op_io_bi) || !validateAlertFilterOption($op_io_bo) || !validateAlertFilterOption($op_system_in) ||  !validateAlertFilterOption($op_system_cs) || !validateAlertFilterOption($op_cpu_us) || !validateAlertFilterOption($op_cpu_sy) || !validateAlertFilterOption($op_cpu_id) || !validateAlertFilterOption($op_cpu_wa) || !validateAlertFilterOption($op_net_rxSum) || !validateAlertFilterOption($op_net_txSum) ||  !validateAlertFilterOption($op_process_status) || !validateAlertFilterOption($op_process_cpu) || !validateAlertFilterOption($op_process_mem) || !validateAlertFilterOption($op_fs_used)){
+                echo 'arg. wrong';
+		die();}
 
 	$query = "SELECT * FROM instance_alert WHERE instanceID = '$instanceID'";
 	$num_rows = mysql_num_rows(mysql_query($query));

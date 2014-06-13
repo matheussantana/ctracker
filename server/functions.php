@@ -38,6 +38,12 @@ function verifyUser($id_user, $type) {
         return false;
 }
 
+function validatesAsInt($number)
+{
+    $number = filter_var($number, FILTER_VALIDATE_INT);
+    return ($number !== FALSE);
+}
+
 function getAlias($itoken) {
 
 	$itoken = safe($itoken);

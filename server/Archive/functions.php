@@ -39,6 +39,45 @@ function verifyUser($id_user, $type) {
         return false;
 }
 
+function validatesAsInt($number)
+{
+    $number = filter_var($number, FILTER_VALIDATE_INT);
+    return ($number !== FALSE);
+}
+
+function validatesAsFloat($number)
+{
+    $number = filter_var($number, FILTER_VALIDATE_FLOAT);
+    return ($number !== FALSE);
+}
+
+
+function validateAlertFilterOption($filter){
+
+
+	$status = false;
+
+	switch ($filter) {
+
+		case "greater":
+			$status = true;
+			break;
+		case "less":
+			$status = true;
+			break;
+		case "equal":
+			$status = true;
+			break;
+		case "disabled":
+			$status = true;
+			break;
+		default:
+			$status = true;
+	}
+
+	return $status;
+}
+
 function isInstanceOwner($email, $itoken){
 	$isMail = filter_var($email, FILTER_VALIDATE_EMAIL);
 	if($isMail != false){

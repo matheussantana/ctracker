@@ -83,7 +83,9 @@ for config in $processconfiglist; do
 	else
 		#check if there is any process running under the $pattern value.
 
-		if [ -n "$patterncmd" ]; then
+		pid_list=$(ps aux | grep "$pattern" | grep -v "grep" | awk '{print $2}');
+
+		if [ -n "$patterncmd" ] && [ ! -n "$pid_list" ]; then
 			#trap "$patterncmd" SIGHUP SIGINT SIGTERM ERR
 			exit_status=$($patterncmd)
 			if [ "$exit_status" = "true" ]; then

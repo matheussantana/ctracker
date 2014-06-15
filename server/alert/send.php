@@ -14,12 +14,12 @@ function compare($filter, $data, $operator){
 
 		switch ($operator) {
 			case "greater":
-				if ($filter > $data)
+				if ($filter < $data)
 					$result = true;
 				break;
 
 			case "less":
-				if($filter < $data)
+				if($filter > $data)
 					$result = true;
 				break;
 			
@@ -45,7 +45,7 @@ while ($user = mysql_fetch_array($user_query)) {
 $query = "SELECT a.* FROM `instance_alert` as a, instance as b WHERE `option-status`=1 AND a.instanceID = b.instanceID AND b.email='".$user['email']."'";
 $inst_query = mysql_query($query);
 $date = date('m/d/Y h:i:s a', time());
-$message = "Ctracker<p>".$date."<p>Alerts:<p><p>";
+$message = "Ctracker<p>"."Date: ".$date."<p>";
 
 while ($inst= mysql_fetch_array($inst_query)) {
 	$message = $message."Server: ". getAlias($inst['instanceID'])."<p>";
@@ -133,7 +133,7 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$last_mem_cache = $obj['memory']['cache'];
 		$op_mem_cache= $inst['op-mem-cache'];
 		if(compare($mem_cache, $last_mem_cache, $op_mem_cache) == true)
-			$message = $message."Memory:cache - ".$last_mem_cache."<p>";
+			$message = $message."Memory:cache - ".$last_mem_cache."Mb<p>";
 
 		$swap_si = $inst['swap-si'];
 		$last_swap_si = $obj['swap']['si'];
@@ -237,11 +237,11 @@ while ($inst= mysql_fetch_array($inst_query)) {
 				$last_process_pid = $p['pid'];
 				$tmp_msg = "PPID: ".$last_process_pid. " - ".$last_process_name."<p>";
 				if(compare($process_cpu, $last_process_cpu, $op_process_cpu) == true){
-					$tmp_msg = $tmp_msg."	CPU: ".$last_process_cpu."<p>";
+					$tmp_msg = $tmp_msg."Process	CPU: ".$last_process_cpu."<p>";
 					$changed = true;
 				}
 				if(compare($process_mem, $last_process_mem, $op_process_mem) == true){
-					$tmp_msg = $tmp_msg."	Memory: ".$last_process_mem."<p>";
+					$tmp_msg = $tmp_msg."Process	Memory: ".$last_process_mem."<p>";
 					$changed = true;
 				}
 			}

@@ -275,7 +275,7 @@ while ($inst= mysql_fetch_array($inst_query)) {
 
 		$obj=$cursor->getNext();
 #print_r($obj);
-		$message = $message."Last recorded communcation: " .date('Y-m-d H:i:s', $obj['timestamp']->sec)."<p>";
+		$message = $message."Last recorded communcation: " .date('Y-m-d H:i:s', $obj['timestamp']->sec). " ". date('T')."<p>";
 	}
 	}
 	}

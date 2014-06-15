@@ -139,25 +139,25 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$last_swap_si = $obj['swap']['si'];
 		$op_swap_si= $inst['op-swap-si'];
 		if(compare($swap_si, $last_swap_si, $op_swap_si) == true)
-			$message = $message."Swap:si - ".$last_swap_si."Mb<p>";
+			$message = $message."Swap:si - ".$last_swap_si."block/s<p>";
 
 		$swap_so = $inst['swap-so'];
 		$last_swap_so = $obj['swap']['so'];
 		$op_swap_so= $inst['op-swap-so'];
 		if(compare($swap_so, $last_swap_so, $op_swap_so) == true)
-			$message = $message."Swap:so" - $last_swap_so."Mb<p>";
+			$message = $message."Swap:so" - $last_swap_so."block/s<p>";
 
 		$io_bi = $inst['io-bi'];
 		$last_io_bi = $obj['io']['bi'];
 		$op_io_bi= $inst['op-io-bi'];
 		if(compare($io_bi, $last_io_bi, $op_io_bi) == true)
-			$message = $message."IO:bi - ".$last_io_bi."<p>";
+			$message = $message."IO:bi - ".$last_io_bi."blocks<p>";
 
 		$io_bo = $inst['io-bo'];
 		$last_io_bo = $obj['io']['bo'];
 		$op_io_bo= $inst['op-io-bo'];
 		if(compare($io_bo, $last_io_bo, $op_io_bo) == true)
-			$message = $message."IO:bo - ".$last_io_bo."<p>";
+			$message = $message."IO:bo - ".$last_io_bo."blocks<p>";
 
 		$system_in = $inst['system-in'];
 		$last_system_in = $obj['system']['in'];
@@ -175,37 +175,37 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$last_cpu_us = $obj['cpu']['us'];
 		$op_cpu_us= $inst['op-cpu-us'];
 		if(compare($cpu_us, $last_cpu_us, $op_cpu_us) == true)
-			$message = $message."CPU:us - ".$last_cpu_us."<p>";
+			$message = $message."CPU:us - ".$last_cpu_us."%<p>";
 
 		$cpu_sy = $inst['cpu-sy'];
 		$last_cpu_sy = $obj['cpu']['sy'];
 		$op_cpu_sy= $inst['op-cpu-sy'];
 		if(compare($cpu_sy, $last_cpu_sy, $op_cpu_sy) == true)
-			$message = $message."CPU:sy - ".$last_cpu_sy."<p>";
+			$message = $message."CPU:sy - ".$last_cpu_sy."%<p>";
 
 		$cpu_id = $inst['cpu-id'];
 		$last_cpu_id = $obj['cpu']['id'];
 		$op_cpu_id= $inst['op-cpu-id'];
 		if(compare($cpu_id, $last_cpu_id, $op_cpu_id) == true)
-			$message = $message."CPU:id - ".$last_cpu_id."<p>";
+			$message = $message."CPU:id - ".$last_cpu_id."%<p>";
 
 		$cpu_wa = $inst['cpu-wa'];
 		$last_cpu_wa = $obj['cpu']['wa'];
 		$op_cpu_wa= $inst['op-cpu-wa'];
 		if(compare($cpu_wa, $last_cpu_wa, $op_cpu_wa) == true)
-			$message = $message."CPU:wa - ".$last_cpu_wa."<p>";
+			$message = $message."CPU:wa - ".$last_cpu_wa."%<p>";
 
 		$net_rxSum = $inst['net-rxSum'];
 		$last_net_rxSum = $obj['network']['rxSum'];
 		$op_net_rxSum= $inst['op-net-rxSum'];
 		if(compare($net_rxSum, $last_net_rxSum, $op_net_rxSum) == true)
-			$message = $message."Network:rxSum - ".$last_net_rxSum."<p>";
+			$message = $message."Network:rxSum - ".$last_net_rxSum."kBps<p>";
 
 		$net_txSum = $inst['net-txSum'];
 		$last_net_txSum = $obj['network']['txSum'];
 		$op_net_txSum= $inst['op-net-txSum'];
 		if(compare($net_txSum, $last_net_txSum, $op_net_txSum) == true)
-			$message = $message."Network:txSum - ".$last_net_txSum."<p>";
+			$message = $message."Network:txSum - ".$last_net_txSum."Kbps<p>";
 
 
 
@@ -237,11 +237,11 @@ while ($inst= mysql_fetch_array($inst_query)) {
 				$last_process_pid = $p['pid'];
 				$tmp_msg = "PPID: ".$last_process_pid. " - ".$last_process_name."<p>";
 				if(compare($process_cpu, $last_process_cpu, $op_process_cpu) == true){
-					$tmp_msg = $tmp_msg."Process	CPU: ".$last_process_cpu."<p>";
+					$tmp_msg = $tmp_msg."Process	CPU: ".$last_process_cpu."%<p>";
 					$changed = true;
 				}
 				if(compare($process_mem, $last_process_mem, $op_process_mem) == true){
-					$tmp_msg = $tmp_msg."Process	Memory: ".$last_process_mem."<p>";
+					$tmp_msg = $tmp_msg."Process	Memory: ".$last_process_mem." Kb<p>";
 					$changed = true;
 				}
 			}

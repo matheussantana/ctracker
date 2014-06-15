@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 19, 2013 at 12:24 AM
--- Server version: 5.5.31-0ubuntu0.12.04.2
--- PHP Version: 5.3.10-1ubuntu3.6
+-- Generation Time: Jun 14, 2014 at 10:33 PM
+-- Server version: 5.1.73
+-- PHP Version: 5.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,6 +33,62 @@ CREATE TABLE IF NOT EXISTS `instance` (
   PRIMARY KEY (`instanceID`,`email`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instance_alert`
+--
+
+CREATE TABLE IF NOT EXISTS `instance_alert` (
+  `instanceID` varchar(255) NOT NULL,
+  `option-status` int(11) NOT NULL,
+  `proc-r` varchar(11) NOT NULL,
+  `proc-b` varchar(11) NOT NULL,
+  `mem-swpd` varchar(11) NOT NULL,
+  `mem-free` varchar(11) NOT NULL,
+  `mem-buff` varchar(11) NOT NULL,
+  `mem-cache` varchar(11) NOT NULL,
+  `swap-si` varchar(11) NOT NULL,
+  `swap-so` varchar(11) NOT NULL,
+  `io-bi` varchar(11) NOT NULL,
+  `io-bo` varchar(11) NOT NULL,
+  `system-in` varchar(11) NOT NULL,
+  `system-cs` varchar(11) NOT NULL,
+  `cpu-us` varchar(11) NOT NULL,
+  `cpu-sy` varchar(11) NOT NULL,
+  `cpu-id` varchar(11) NOT NULL,
+  `cpu-wa` varchar(11) NOT NULL,
+  `net-rxSum` varchar(11) NOT NULL,
+  `net-txSum` varchar(11) NOT NULL,
+  `process-status` varchar(11) NOT NULL,
+  `process-cpu` varchar(11) NOT NULL,
+  `process-mem` varchar(11) NOT NULL,
+  `fs-used` varchar(11) NOT NULL,
+  `op-proc-r` varchar(11) NOT NULL,
+  `op-proc-b` varchar(11) NOT NULL,
+  `op-mem-swpd` varchar(11) NOT NULL,
+  `op-mem-free` varchar(11) NOT NULL,
+  `op-mem-buff` varchar(11) NOT NULL,
+  `op-mem-cache` varchar(11) NOT NULL,
+  `op-swap-si` varchar(11) NOT NULL,
+  `op-swap-so` varchar(11) NOT NULL,
+  `op-io-bi` varchar(11) NOT NULL,
+  `op-io-bo` varchar(11) NOT NULL,
+  `op-system-in` varchar(11) NOT NULL,
+  `op-system-cs` varchar(11) NOT NULL,
+  `op-cpu-us` varchar(11) NOT NULL,
+  `op-cpu-sy` varchar(11) NOT NULL,
+  `op-cpu-id` varchar(11) NOT NULL,
+  `op-cpu-wa` varchar(11) NOT NULL,
+  `op-net-rxSum` varchar(11) NOT NULL,
+  `op-net-txSum` varchar(11) NOT NULL,
+  `op-process-cpu` varchar(11) NOT NULL,
+  `op-process-mem` varchar(11) NOT NULL,
+  `op-process-status` varchar(255) NOT NULL,
+  `op-fs-used` varchar(11) NOT NULL,
+  PRIMARY KEY (`instanceID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

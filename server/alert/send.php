@@ -114,20 +114,20 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$last_mem_swpd = $obj['memory']['swpd'];
 		$op_mem_spwd = $inst['op-proc-b'];
 		if(compare($mem_swpd, $last_mem_swpd, $op_mem_spwd) == true)
-			$message = $message."Memory:swpd - ".$last_proc_b."<p>";
+			$message = $message."Memory:swpd - ".$last_proc_b." Mb<p>";
 
 
 		$mem_free = $inst['mem-free'];
 		$last_mem_free = $obj['memory']['free'];
 		$op_mem_free = $inst['op-mem-free'];
 		if(compare($mem_free, $last_mem_free, $op_mem_free) == true)
-			$message = $message."Memory:free - ".$last_mem_free."<p>";
+			$message = $message."Memory:free - ".$last_mem_free." Mb<p>";
 
 		$mem_buff = $inst['mem-buff'];
 		$last_mem_buff = $obj['memory']['buff'];
 		$op_mem_buff= $inst['op-mem-buff'];
 		if(compare($mem_buff, $last_mem_buff, $op_mem_buff) == true)
-			$message = $message."Memory:buff - ".$last_mem_buff."<p>";
+			$message = $message."Memory:buff - ".$last_mem_buff."Mb<p>";
 
 		$mem_cache = $inst['mem-cache'];
 		$last_mem_cache = $obj['memory']['cache'];
@@ -139,13 +139,13 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$last_swap_si = $obj['swap']['si'];
 		$op_swap_si= $inst['op-swap-si'];
 		if(compare($swap_si, $last_swap_si, $op_swap_si) == true)
-			$message = $message."Swap:si - ".$last_swap_si."<p>";
+			$message = $message."Swap:si - ".$last_swap_si."Mb<p>";
 
 		$swap_so = $inst['swap-so'];
 		$last_swap_so = $obj['swap']['so'];
 		$op_swap_so= $inst['op-swap-so'];
 		if(compare($swap_so, $last_swap_so, $op_swap_so) == true)
-			$message = $message."Swap:so" - $last_swap_so."<p>";
+			$message = $message."Swap:so" - $last_swap_so."Mb<p>";
 
 		$io_bi = $inst['io-bi'];
 		$last_io_bi = $obj['io']['bi'];
@@ -270,14 +270,20 @@ while ($inst= mysql_fetch_array($inst_query)) {
 
 		}
 
+	}else{
+		$message = $message."Unable to contact server for more than 5 minutes<p>";
+
+		$obj=$cursor->getNext();
+#print_r($obj);
+		$message = $message."Last recorded communcation: " .date('Y-m-d H:i:s', $obj['timestamp']->sec)."<p>";
 	}
 	}
 	}
 }
 
-//echo $message;
+echo $message;
 //send it!
-require './PHPMailer/connection_stmp_no_auth.php';
+require './PHPMailer/connection.php';
 
 $mail->addAddress($user['email'], $user['Alias']);     // Add a recipient
 //$mail->addAddress('ellen@example.com');               // Name is optional
@@ -301,5 +307,6 @@ if(!$mail->send()) {
 } else {
     echo 'Message has been sent to: '.$user['email']."<p>";
 }
+
 }
 ?>

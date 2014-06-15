@@ -45,7 +45,7 @@ while ($user = mysql_fetch_array($user_query)) {
 $query = "SELECT a.* FROM `instance_alert` as a, instance as b WHERE `option-status`=1 AND a.instanceID = b.instanceID AND b.email='".$user['email']."'";
 $inst_query = mysql_query($query);
 $date = date('m/d/Y h:i:s a', time());
-$message = "Ctracker<p>"."Date: ".$date."<p>";
+$message = "Ctracker Report<p>"."Date: ".$date." ". date('T')  . "<p>";
 
 while ($inst= mysql_fetch_array($inst_query)) {
 	$message = $message."Server: ". getAlias($inst['instanceID'])."<p>";
@@ -102,13 +102,13 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$last_proc_r = $obj['procs']['r'];
 		$op_proc_r= $inst['op-proc-r'];
 		if(compare($proc_r, $last_proc_r, $op_proc_r)==true)
-			$message = $message."Proc:r - ".$last_proc_r."<p>";
+			$message = $message."Proc:r - ".$last_proc_r." processes waiting.<p>";
 
 		$proc_b = $inst['proc-b'];
 		$last_proc_b = $obj['procs']['b'];
 		$op_proc_b = $inst['op-proc-b'];
 		if(compare($proc_b, $last_proc_b, $op_proc_b)==true)
-			$message = $message."Proc:b - ".$last_proc_b."<p>";
+			$message = $message."Proc:b - ".$last_proc_b." processes in uninterruptible sleep.<p>";
 
 		$mem_swpd = $inst['mem-swpd'];
 		$last_mem_swpd = $obj['memory']['swpd'];
@@ -127,85 +127,85 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$last_mem_buff = $obj['memory']['buff'];
 		$op_mem_buff= $inst['op-mem-buff'];
 		if(compare($mem_buff, $last_mem_buff, $op_mem_buff) == true)
-			$message = $message."Memory:buff - ".$last_mem_buff."Mb<p>";
+			$message = $message."Memory:buff - ".$last_mem_buff." Mb<p>";
 
 		$mem_cache = $inst['mem-cache'];
 		$last_mem_cache = $obj['memory']['cache'];
 		$op_mem_cache= $inst['op-mem-cache'];
 		if(compare($mem_cache, $last_mem_cache, $op_mem_cache) == true)
-			$message = $message."Memory:cache - ".$last_mem_cache."Mb<p>";
+			$message = $message."Memory:cache - ".$last_mem_cache." Mb<p>";
 
 		$swap_si = $inst['swap-si'];
 		$last_swap_si = $obj['swap']['si'];
 		$op_swap_si= $inst['op-swap-si'];
 		if(compare($swap_si, $last_swap_si, $op_swap_si) == true)
-			$message = $message."Swap:si - ".$last_swap_si."block/s<p>";
+			$message = $message."Swap:si - ".$last_swap_si." block/s<p>";
 
 		$swap_so = $inst['swap-so'];
 		$last_swap_so = $obj['swap']['so'];
 		$op_swap_so= $inst['op-swap-so'];
 		if(compare($swap_so, $last_swap_so, $op_swap_so) == true)
-			$message = $message."Swap:so" - $last_swap_so."block/s<p>";
+			$message = $message."Swap:so" - $last_swap_so." block/s<p>";
 
 		$io_bi = $inst['io-bi'];
 		$last_io_bi = $obj['io']['bi'];
 		$op_io_bi= $inst['op-io-bi'];
 		if(compare($io_bi, $last_io_bi, $op_io_bi) == true)
-			$message = $message."IO:bi - ".$last_io_bi."blocks<p>";
+			$message = $message."IO:bi - ".$last_io_bi." blocks<p>";
 
 		$io_bo = $inst['io-bo'];
 		$last_io_bo = $obj['io']['bo'];
 		$op_io_bo= $inst['op-io-bo'];
 		if(compare($io_bo, $last_io_bo, $op_io_bo) == true)
-			$message = $message."IO:bo - ".$last_io_bo."blocks<p>";
+			$message = $message."IO:bo - ".$last_io_bo." blocks<p>";
 
 		$system_in = $inst['system-in'];
 		$last_system_in = $obj['system']['in'];
 		$op_system_in= $inst['op-system-in'];
 		if(compare($system_in, $last_system_in, $op_system_in) == true)
-			$message = $message."System:in: - ".$last_system_in."<p>";
+			$message = $message."System:in: - ".$last_system_in." interrupts/s<p>";
 
 		$system_cs = $inst['system-cs'];
 		$last_system_cs = $obj['system']['cs'];
 		$op_system_cs= $inst['op-system-cs'];
 		if(compare($system_cs, $last_system_cs, $op_system_cs) == true)
-			$message = $message."System:cs - ".$last_system_cs."<p>";
+			$message = $message."System:cs - ".$last_system_cs." context switches/s<p>";
 
 		$cpu_us = $inst['cpu-us'];
 		$last_cpu_us = $obj['cpu']['us'];
 		$op_cpu_us= $inst['op-cpu-us'];
 		if(compare($cpu_us, $last_cpu_us, $op_cpu_us) == true)
-			$message = $message."CPU:us - ".$last_cpu_us."%<p>";
+			$message = $message."CPU:us - ".$last_cpu_us." %<p>";
 
 		$cpu_sy = $inst['cpu-sy'];
 		$last_cpu_sy = $obj['cpu']['sy'];
 		$op_cpu_sy= $inst['op-cpu-sy'];
 		if(compare($cpu_sy, $last_cpu_sy, $op_cpu_sy) == true)
-			$message = $message."CPU:sy - ".$last_cpu_sy."%<p>";
+			$message = $message."CPU:sy - ".$last_cpu_sy." %<p>";
 
 		$cpu_id = $inst['cpu-id'];
 		$last_cpu_id = $obj['cpu']['id'];
 		$op_cpu_id= $inst['op-cpu-id'];
 		if(compare($cpu_id, $last_cpu_id, $op_cpu_id) == true)
-			$message = $message."CPU:id - ".$last_cpu_id."%<p>";
+			$message = $message."CPU:id - ".$last_cpu_id." %<p>";
 
 		$cpu_wa = $inst['cpu-wa'];
 		$last_cpu_wa = $obj['cpu']['wa'];
 		$op_cpu_wa= $inst['op-cpu-wa'];
 		if(compare($cpu_wa, $last_cpu_wa, $op_cpu_wa) == true)
-			$message = $message."CPU:wa - ".$last_cpu_wa."%<p>";
+			$message = $message."CPU:wa - ".$last_cpu_wa." %<p>";
 
 		$net_rxSum = $inst['net-rxSum'];
 		$last_net_rxSum = $obj['network']['rxSum'];
 		$op_net_rxSum= $inst['op-net-rxSum'];
 		if(compare($net_rxSum, $last_net_rxSum, $op_net_rxSum) == true)
-			$message = $message."Network:rxSum - ".$last_net_rxSum."kBps<p>";
+			$message = $message."Network:rxSum - ".$last_net_rxSum." kBps<p>";
 
 		$net_txSum = $inst['net-txSum'];
 		$last_net_txSum = $obj['network']['txSum'];
 		$op_net_txSum= $inst['op-net-txSum'];
 		if(compare($net_txSum, $last_net_txSum, $op_net_txSum) == true)
-			$message = $message."Network:txSum - ".$last_net_txSum."Kbps<p>";
+			$message = $message."Network:txSum - ".$last_net_txSum." kBps<p>";
 
 
 
@@ -237,7 +237,7 @@ while ($inst= mysql_fetch_array($inst_query)) {
 				$last_process_pid = $p['pid'];
 				$tmp_msg = "PPID: ".$last_process_pid. " - ".$last_process_name."<p>";
 				if(compare($process_cpu, $last_process_cpu, $op_process_cpu) == true){
-					$tmp_msg = $tmp_msg."Process	CPU: ".$last_process_cpu."%<p>";
+					$tmp_msg = $tmp_msg."Process	CPU: ".$last_process_cpu." %<p>";
 					$changed = true;
 				}
 				if(compare($process_mem, $last_process_mem, $op_process_mem) == true){
@@ -264,7 +264,7 @@ while ($inst= mysql_fetch_array($inst_query)) {
 			$pct = str_replace("%","",$device_pct[$i]);
 
 			if($pct > $fs_used_pct){
-				$message = $message."Device path: ".$dev." - Disk usage: ".$pct."%<p>";
+				$message = $message."Device path: ".$dev." - Disk usage: ".$pct." %<p>";
 			}
 			$i++;
 

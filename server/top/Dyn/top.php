@@ -167,10 +167,28 @@ echo '
 
 function defineColor(txt){
 
-	if(txt == "Running")
+/*	if(txt == "Running")
 		txt = "<p style=\"color:green\">"+txt+"</p>";
 	else if(txt == "Stopped")
-		txt = "<p style=\"color:red\">"+txt+"</p>";
+		txt = "<p style=\"color:red\">"+txt+"</p>";*/
+
+        switch(txt) {
+
+                case "Running":
+                        txt = "<p style=\"color:green\">"+txt+"</p>";
+                        break;
+                case "Stopped":
+                        txt = "<p style=\"color:red\">"+txt+"</p>";
+                        break;
+                case "Sleeping":
+                        txt = "<p style=\"color:#FF9900\">"+txt+"</p>";
+                        break;
+                default:
+                        txt = txt;
+                        break;
+
+        }
+
 
 	return txt
 }

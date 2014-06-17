@@ -91,6 +91,9 @@ for config in $processconfiglist; do
 			if [ "$exit_status" = "true" ]; then
 				json[$count]="{\"name\": \"$name\", \"status\": \"Sleeping\"}"
 				count=$((count+1));
+			else
+                                json[$count]="{\"name\": \"$name\", \"status\": \"Stopped\"}"
+                                count=$((count+1));
 			fi
 		else
 			pid_list=$(ps aux | grep "$pattern" | grep -v "grep" | awk '{print $2}');

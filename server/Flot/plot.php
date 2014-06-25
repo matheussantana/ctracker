@@ -117,7 +117,6 @@ cnt[host_index]++;
 			success: function(data) {
 			    result = data;
 			//alert(data);
-
 			if($.trim(result) != "null" && $.trim(result) != "[0,0]"){//No data found on db.
 					//mount the json string;
 					var j = "[";
@@ -130,15 +129,19 @@ cnt[host_index]++;
 						res[host_index].push(tmp_array_res[index]);
 					}
 					ts[host_index] = res[host_index][res[host_index].length-1][0];//stores timestamp from the last update.
-
+//alert(ts[host_index]);
 					//If res[index] element of res is older the filter defined, then remove element.
 					index = 0;
 					var tmp_res = [];
 					var f = $("input#filterts_'.$elem.'").val();
-
 					if(cnt[host_index] > 2 && f != 0){
 						for (index = 0; index < res[host_index].length; ++index){
-							if(tmp_array_res[length][0] - res[host_index][index][0] < f){
+//alert(res[host_index][index][0]);
+//alert(f);
+							var ts_filter = ts[host_index] - f;
+
+//alert(res[host_index][index][0] + " " + f);
+							if(res[host_index][index][0] > ts_filter){
 								tmp_res.push(res[host_index][index]);
 						}
 					}
@@ -440,7 +443,6 @@ function filter_rules_'.$elem.'(){
 
 	$type = $("#parent_selection_'.$elem.'").find(":selected").text();
 	$freq = $("#child_selection_'.$elem.'").find(":selected").text();
-
 	var filter = 0;
 	switch($type){
 		case "Minutes":
@@ -459,7 +461,6 @@ function filter_rules_'.$elem.'(){
 	$("input#filterby_'.$elem.'").val("true");
 	$("input#filterts_'.$elem.'").val($filter);
 
-
 }
 //function to populate child select box
 function list_'.$elem.'(array_list)
@@ -475,8 +476,33 @@ function list_'.$elem.'(array_list)
 </script>
 
 <script type="text/javascript">
+function filter_rules_'.$elem.'(){
+
+        $type = $("#parent_selection_'.$elem.'").find(":selected").text();
+        $freq = $("#child_selection_'.$elem.'").find(":selected").text();
+        var filter = 0;
+        switch($type){
+                case "Minutes":
+                        $filter = $freq*60*1000;
+                        break;
+                case "Hours":
+                        $filter = $freq*3600*1000;
+                        break;
+                case "Days":
+                        $filter = $freq*86400*1000;
+                        break;
+                default:
+                        $filter = 5*60*1000;
+                        break;
+        }
+        $("input#filterby_'.$elem.'").val("true");
+        $("input#filterts_'.$elem.'").val($filter);
+
+}
+
     function updateFilter_'.$elem.'() {
-       $("input#filterby_'.$elem.'").val("true");
+//       $("input#filterby_'.$elem.'").val("true");
+	filter_rules_'.$elem.'();
     }
 </script>
 ';

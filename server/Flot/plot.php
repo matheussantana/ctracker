@@ -80,13 +80,53 @@ foreach ($host as $value) {
 
 
 echo '};
+';
+
+
+echo 'var map_itoken_filter_index=  {';
+
+$count = 0;
+foreach ($host as $value) {
+
+        echo '"'.$value["instanceID"].'":'.$count;
+        if($count < (count($host)-1))
+                echo ',';
+        $count++;
+}
+
+
+echo '};
+';
+
+
+
+
+
+echo 'var updateFilter =  {';
+
+$count = 0;
+foreach ($host as $value) {
+
+        echo '"'.$value["instanceID"].'":""';
+        if($count < (count($host)-1))
+                echo ',';
+        $count++;
+}
+
+
+echo '};
+
+
+
+
+
 		function getRandomData(host_index) {
 		     var result = null;
 		//     var scriptUrl = "http://localhost/test";
-$updateFilter = $("input#filterby_'.$elem.'").val();
-if($updateFilter == "true"){
+updateFilter[host_index] = $("input#filterby_'.$elem.'_"+map_itoken_filter_index[host_index]).val();
+if(updateFilter[host_index] == "true"){
 
-			 $("input#filterby_'.$elem.'").val("false");
+			 $("input#filterby_'.$elem.'_"+map_itoken_filter_index[host_index]).val("false");
 			cnt[host_index] = 1;
 			res[host_index] = [];
 			ts[host_index] = 0;
@@ -439,29 +479,7 @@ $("#parent_selection_'.$elem.'").change(function() {
 
 });
 
-function filter_rules_'.$elem.'(){
-
-	$type = $("#parent_selection_'.$elem.'").find(":selected").text();
-	$freq = $("#child_selection_'.$elem.'").find(":selected").text();
-	var filter = 0;
-	switch($type){
-		case "Minutes":
-			$filter = $freq*60*1000;
-			break;
-		case "Hours":
-			$filter = $freq*3600*1000;
-			break;
-		case "Days":
-			$filter = $freq*86400*1000;
-			break;
-		default:
-			$filter = 5*60*1000;
-			break;
-	}
-	$("input#filterby_'.$elem.'").val("true");
-	$("input#filterts_'.$elem.'").val($filter);
-
-}
+'.print_filter_rules($elem, $host).'
 //function to populate child select box
 function list_'.$elem.'(array_list)
 {
@@ -476,7 +494,20 @@ function list_'.$elem.'(array_list)
 </script>
 
 <script type="text/javascript">
-function filter_rules_'.$elem.'(){
+'.print_filter_rules($elem, $host).'
+
+    function updateFilter_'.$elem.'() {
+//       $("input#filterby_'.$elem.'").val("true");
+	filter_rules_'.$elem.'();
+    }
+</script>
+';
+
+}
+
+function print_filter_rules($elem, $host){
+
+	$output = ' function filter_rules_'.$elem.'(){
 
         $type = $("#parent_selection_'.$elem.'").find(":selected").text();
         $freq = $("#child_selection_'.$elem.'").find(":selected").text();
@@ -495,21 +526,21 @@ function filter_rules_'.$elem.'(){
                         $filter = 5*60*1000;
                         break;
         }
-        $("input#filterby_'.$elem.'").val("true");
-        $("input#filterts_'.$elem.'").val($filter);
-
-}
-
-    function updateFilter_'.$elem.'() {
-//       $("input#filterby_'.$elem.'").val("true");
-	filter_rules_'.$elem.'();
-    }
-</script>
 ';
+	$count=0;
+        foreach ($host as $value) {
+	        $output=$output. '
+			$("input#filterby_'.$elem.'_'.$count.'").val("true");';
+			$count++;
+	}
 
+        $output=$output.'
+		$("input#filterts_'.$elem.'").val($filter);
+	
+}';
+
+	return $output;
 }
-
-
 function getFilter($elem, $host, $itoken){
 echo '                <div>
                 <table style="width:300px">
@@ -525,8 +556,14 @@ echo '                <div>
                         <td>
 <select name="child_selection_'.$elem.'" id="child_selection_'.$elem.'" disabled=true onChange="updateFilter_'.$elem.'()">
 </select>
-<input type=hidden name="filterby_'.$elem.'" id="filterby_'.$elem.'" value="false">
 <input type=hidden name="filterts_'.$elem.'" id="filterts_'.$elem.'" value="0">
+';
+	$count=0;
+        foreach ($host as $value) {
+		echo '<input type=hidden name="filterby_'.$elem.'_'.$count.'" id="filterby_'.$elem.'_'.$count.'" value="false">';
+		$count++;
+	}
+echo'
 </td>
 <td>
 <a href="#" data-reveal-id="myModal_'.$elem.'"> Server\'s Host </a>

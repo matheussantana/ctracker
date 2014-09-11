@@ -42,7 +42,7 @@ $html = '';
 
 $css = '<style type="text/css">'.file_get_contents('./pure-min.css'). '</style>';
 $html = $html.$css;
-
+$html = $html ."Server analytic data: <br><br>";
 function mmmr($array, $output = 'mean'){ 
     if(!is_array($array)){ 
         return FALSE; 

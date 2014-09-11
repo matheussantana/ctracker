@@ -98,6 +98,52 @@ function calculate_mmr($array){
 	return $values;
 }
 
+function insert_sql($type, $input_val, $start, $end, $itoken){
+#		array_push("INSERT into '.$table.' VALUES (
+
+	$sql = '';
+	$size =  count($input_val);
+	$cnt = 0; 
+	foreach($input_val as $i){
+
+		if($cnt < ($size-1))
+			$sql = $sql.'\''.$i.'\', ';
+		else
+			$sql = $sql.'\''.$i.'\'';
+		$cnt++;
+	}
+
+	$sql = "INSERT INTO stats VALUES('$type', '$start','$end','$itoken', ".$sql.")";
+	return $sql;
+
+}
+
+function insert_sql_disk($end, $itoken, $pct, $mount){
+
+	$sql = array();
+
+	$size = count($pct);
+	$count = 0;
+	while($count != $size){
+
+		array_push($sql, "INSERT INTO stat_disk_usage VALUES ('$end', '$itoken', '$mount[$count]', '$pct[$count]')");
+		$count++;
+	}
+
+	return $sql;
+}
+
+function SQL_query($array){
+
+	foreach($array as $query){
+		$do_query = mysql_query($query);
+		if (!$do_query){
+			echo 'Error while inserting in the db:<br>'.$query.'<br>';
+			echo "Error creating database: " . mysql_error(). "<br>";}
+	}
+
+}
+
 function stats_standard_deviation(array $a, $sample = false) {
         $n = count($a);
         if ($n === 0) {
@@ -219,12 +265,23 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$fields = array('Mean', 'Standart Deviation', 'Median', 'Mode', 'High', 'Low', 'Range [High...Low]');
 
 	$html = $html . open_html_table($itoken, $fields);
-	$html = $html . print_html(calculate_mmr($CPUIdleArray), "CPU (%)");
-	$html = $html . print_html(calculate_mmr($UsedMemArray), "Memory (Mb)");
-	$html = $html . print_html(calculate_mmr($DiskReadArray), "Disk Read/Input (block/s)");
-	$html = $html .print_html(calculate_mmr($DiskWriteArray), "Disk Write/Output (block/s)");
-	$html = $html . print_html(calculate_mmr($NetTXArray), "Network Sent/TX (KB/s)");
-	$html =  $html .print_html(calculate_mmr($NetRXArray), "Network Received/RX (KB/s)");
+	$cpu_array = calculate_mmr($CPUIdleArray);
+	$html = $html . print_html($cpu_array, "CPU (%)");
+
+	$mem_array = calculate_mmr($UsedMemArray);
+	$html = $html . print_html($mem_array, "Memory (Mb)");
+
+	$diskread_array = calculate_mmr($DiskReadArray);
+	$html = $html . print_html($diskread_array, "Disk Read/Input (block/s)");
+
+	$diskwrite_array = calculate_mmr($DiskWriteArray);
+	$html = $html .print_html($diskwrite_array, "Disk Write/Output (block/s)");
+
+	$nettx_array = calculate_mmr($NetTXArray);
+	$html = $html . print_html($nettx_array, "Network Sent/TX (KB/s)");
+
+	$netrx_array = calculate_mmr($NetRXArray);
+	$html =  $html .print_html($netrx_array, "Network Received/RX (KB/s)");
 
 	$html = $html . close_html_table();
 
@@ -241,7 +298,19 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	}
 
 	$html = $html . close_html_table(). "<br>";
-	
+
+	$insert	= array();
+	array_push($insert, insert_sql("cpu", $cpu_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("mem", $cpu_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("disk_read", $cpu_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("disk_write", $cpu_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("nettx", $cpu_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("netrx", $cpu_array, $start_date, $end_date, $itoken));
+
+	SQL_query($insert);
+
+	SQL_query(insert_sql_disk($end_date, $itoken, $FSArray, $FSmount));
+
 
 }
 

@@ -301,11 +301,11 @@ while ($inst= mysql_fetch_array($inst_query)) {
 
 	$insert	= array();
 	array_push($insert, insert_sql("cpu", $cpu_array, $start_date, $end_date, $itoken));
-	array_push($insert, insert_sql("mem", $cpu_array, $start_date, $end_date, $itoken));
-	array_push($insert, insert_sql("disk_read", $cpu_array, $start_date, $end_date, $itoken));
-	array_push($insert, insert_sql("disk_write", $cpu_array, $start_date, $end_date, $itoken));
-	array_push($insert, insert_sql("nettx", $cpu_array, $start_date, $end_date, $itoken));
-	array_push($insert, insert_sql("netrx", $cpu_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("mem", $mem_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("disk_read", $diskread_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("disk_write", $diskwrite_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("nettx", $nettx_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("netrx", $netrx_array, $start_date, $end_date, $itoken));
 
 	SQL_query($insert);
 

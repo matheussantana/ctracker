@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.2
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 10, 2014 at 10:54 PM
+-- Generation Time: Jun 14, 2014 at 10:33 PM
 -- Server version: 5.1.73
 -- PHP Version: 5.3.3
 
@@ -120,41 +120,6 @@ CREATE TABLE IF NOT EXISTS `instance_link` (
   PRIMARY KEY (`instanceID_one`,`instanceID_two`),
   KEY `instanceID_two` (`instanceID_two`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stats`
---
-
-CREATE TABLE IF NOT EXISTS `stats` (
-  `type` varchar(255) NOT NULL,
-  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `instanceID` varchar(255) NOT NULL,
-  `mean` varchar(255) NOT NULL,
-  `standart_deviation` varchar(255) NOT NULL,
-  `median` varchar(255) NOT NULL,
-  `mode` varchar(255) NOT NULL,
-  `high` varchar(255) NOT NULL,
-  `low` varchar(255) NOT NULL,
-  `range` varchar(255) NOT NULL,
-  PRIMARY KEY (`type`,`start`,`end`,`instanceID`),
-  KEY `instanceID` (`instanceID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stat_disk_usage`
---
-
-CREATE TABLE IF NOT EXISTS `stat_disk_usage` (
-  `date` varchar(255) NOT NULL,
-  `instanceToken` varchar(255) NOT NULL,
-  `mount` varchar(255) NOT NULL,
-  `pct` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

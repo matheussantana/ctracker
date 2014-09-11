@@ -29,6 +29,7 @@
  *
  *****************************************************************************/
 session_start();
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
 require '../jsonwrapper/jsonwrapper.php';
 include '../mongoconnection.php';
@@ -243,6 +244,8 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	echo $html;
 
 
+}
+
 	#require './PHPMailer/connection.php';
 	require '../alert/PHPMailer/connection_smtp_no_auth.php'; 
 
@@ -267,11 +270,10 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$mail->msgHTML(html_entity_decode($html));
 	//This is the body in plain text for non-HTML mail clients
 	$mail->AltBody = $html;
-
+	echo "<br>";
 	if(!$mail->send()) {
 	    echo 'Message could not be sent to: '.$_SESSION['email']."<p>";
 	    echo 'Mailer Error: ' . $mail->ErrorInfo;
 	} else {
 	    echo 'Message has been sent to: '.$_SESSION['email']."<p>";
 	}
-}

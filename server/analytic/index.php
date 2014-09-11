@@ -241,10 +241,12 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	}
 
 	$html = $html . close_html_table(). "<br>";
-	echo $html;
-
+	
 
 }
+
+	echo $html;
+
 
 	#require './PHPMailer/connection.php';
 	require '../alert/PHPMailer/connection_smtp_no_auth.php'; 

@@ -240,7 +240,7 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		$cnt++;
 	}
 
-	$html = $html . close_html_table();
+	$html = $html . close_html_table(). "<br>";
 	echo $html;
 
 

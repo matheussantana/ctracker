@@ -30,6 +30,8 @@
  *****************************************************************************/
 session_start();
 ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+ini_set('memory_limit', '-1');
+
 
 require '../jsonwrapper/jsonwrapper.php';
 include '../mongoconnection.php';

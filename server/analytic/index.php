@@ -242,6 +242,8 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$NetRXArray = array();
 	$SwapInArray = array();
 	$SwapOutArray = array();
+	$ProcRArray = array();
+	$ProcBArray = array();
 
 
 	$FSArray = array();
@@ -262,6 +264,9 @@ while ($inst= mysql_fetch_array($inst_query)) {
 		array_push($NetRXArray, $document["network"]["rxSum"]);
 		array_push($SwapInArray, $document["swap"]["si"]);
 		array_push($SwapOutArray, $document["swap"]["so"]);
+		array_push($ProcRArray, $document["procs"]["r"]);
+		array_push($ProcBArray, $document["procs"]["b"]);
+
 
 
 		
@@ -327,6 +332,11 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$swapout_array = calculate_mmr($SwapOutArray);
 	$html = $html . print_html($swapout_array,"Swap Out");
 
+	$procr_array = calculate_mmr($ProcRArray);
+	$html = $html .print_html($procr_array, "Process waiting");
+
+	$procb_array = calculate_mmr($ProcBArray);
+	$html = $html . print_html($procb_array, "Process Sleep");
 
 
 	$html = $html . close_html_table();

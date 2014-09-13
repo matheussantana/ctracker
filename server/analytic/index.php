@@ -209,7 +209,7 @@ if (isset($_SESSION['email']) == false) {//check if user is login;
 }
 
 $start_date = "2014-09-08 00:00:00";
-$end_date = "2014-09-13 00:00:00";
+$end_date = "2014-09-14 00:00:00";
 
 $html = $html . "Start: ".$start_date." End: ".$end_date."<br>";
 $html = $html . "<br>";
@@ -306,8 +306,8 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$membuff_array = calculate_mmr($MemBuffArray);
 	$html = $html . print_html($membuff_array, "Memory Buffer (Mb)");
 
-	$memswap_array = calculate_mmr($MemSwpdArray);
-	$html = $html . print_html($memswap_array, "Memory Swap");
+	$memswpd_array = calculate_mmr($MemSwpdArray);
+	$html = $html . print_html($memswpd_array, "Memory Swap");
 
 	$diskread_array = calculate_mmr($DiskReadArray);
 	$html = $html . print_html($diskread_array, "Disk Read/Input (block/s)");
@@ -346,15 +346,20 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$html = $html . close_html_table(). "<br>";
 
 	$insert	= array();
-	array_push($insert, insert_sql("cpu", $cpu_array, $start_date, $end_date, $itoken));
-	array_push($insert, insert_sql("mem", $mem_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("cpuid", $cpuid_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("cpuus", $cpuus_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("cpusy", $cpusy_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("cpuwa", $cpuid_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("memfree", $memfree_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("memswpd", $memswpd_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("membuff", $membuff_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("memcache", $memcache_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("disk_read", $diskread_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("disk_write", $diskwrite_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("nettx", $nettx_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("netrx", $netrx_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("swapin", $swapin_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("swapout", $swapout_array, $start_date, $end_date, $itoken));
-	array_push($insert, insert_sql("memswpd", $memswap_array, $start_date, $end_date, $itoken));
 
 	SQL_query($insert);
 

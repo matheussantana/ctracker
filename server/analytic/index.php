@@ -209,7 +209,7 @@ if (isset($_SESSION['email']) == false) {//check if user is login;
 }
 
 $start_date = "2014-09-08 00:00:00";
-$end_date = "2014-09-12 00:00:00";
+$end_date = "2014-09-13 00:00:00";
 
 $html = $html . "Start: ".$start_date." End: ".$end_date."<br>";
 $html = $html . "<br>";
@@ -227,23 +227,44 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$cursor->sort( array( 'name' => 1 ) );
 	$result = $cursor->getNext();*/
 
-	$UsedMemArray = array();#In Mb
+	#$UsedMemArray = array();#In Mb
+	$MemFreeArray = array();
+	$MemBuffArray = array();
+	$MemCacheArray = array();
+	$MemSwpdArray = array();
 	$CPUIdleArray = array();#in %
+	$CPUUsArray = array();
+	$CPUSyArray = array();
+	$CPUWaArray = array();
 	$DiskReadArray = array();
 	$DiskWriteArray = array();
 	$NetTXArray = array();
 	$NetRXArray = array();
+	$SwapInArray = array();
+	$SwapOutArray = array();
 
 
 	$FSArray = array();
 	$FSmount = array();
 	foreach ($cursor as $document) {
-		array_push($UsedMemArray,$document["hardware"]["mem"]["size_mb"] - $document['memory']['free']);
+#		array_push($UsedMemArray,$document["hardware"]["mem"]["size_mb"] - $document['memory']['free']);
+		array_push($MemFreeArray, $document["memory"]["free"]);
+		array_push($MemBuffArray, $document["memory"]["buff"]);
+		array_push($MemCacheArray, $document["memory"]["cache"]);
+		array_push($MemSwpdArray, $document["memory"]["swpd"]);
 		array_push($CPUIdleArray,$document["cpu"]["id"]);
+		array_push($CPUUsArray, $document["cpu"]["us"]);
+		array_push($CPUSyArray, $document["cpu"]["sy"]);
+		array_push($CPUWaArray, $document["cpu"]["wa"]);
 		array_push($DiskReadArray,$document["io"]["bi"]);
 		array_push($DiskWriteArray, $document["io"]["bo"]);
 		array_push($NetTXArray, $document["network"]["txSum"]);
 		array_push($NetRXArray, $document["network"]["rxSum"]);
+		array_push($SwapInArray, $document["swap"]["si"]);
+		array_push($SwapOutArray, $document["swap"]["so"]);
+
+
+		
 
 		$size = count($document["hardware"]["fs"]["pct"]);
 		$count = 0;
@@ -265,11 +286,28 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	$fields = array('Mean', 'Standart Deviation', 'Median', 'Mode', 'High', 'Low', 'Range [High...Low]');
 
 	$html = $html . open_html_table($itoken, $fields);
-	$cpu_array = calculate_mmr($CPUIdleArray);
-	$html = $html . print_html($cpu_array, "CPU (%)");
+	$cpuid_array = calculate_mmr($CPUIdleArray);
+	$html = $html . print_html($cpuid_array, "CPU Idle (%)");
+	$cpuus_array = calculate_mmr($CPUUsArray);
+	$html = $html . print_html($cpuus_array, "CPU User (%)");
+	$cpusy_array = calculate_mmr($CPUSyArray);
+	$html = $html . print_html($cpusy_array, "CPU System (%)");
+	$cpuwa_array = calculate_mmr($CPUWaArray);
+	$html = $html . print_html($cpuwa_array, "CPU Wait (%)");
+	
 
-	$mem_array = calculate_mmr($UsedMemArray);
-	$html = $html . print_html($mem_array, "Memory (Mb)");
+
+	$memfree_array = calculate_mmr($MemFreeArray);
+	$html = $html . print_html($memfree_array, "Memory Free (Mb)");
+
+	$memcache_array = calculate_mmr($MemCacheArray);
+	$html = $html . print_html($memcache_array, "Memory Cache (Mb)");
+
+	$membuff_array = calculate_mmr($MemBuffArray);
+	$html = $html . print_html($membuff_array, "Memory Buffer (Mb)");
+
+	$memswap_array = calculate_mmr($MemSwpdArray);
+	$html = $html . print_html($memswap_array, "Memory Swap");
 
 	$diskread_array = calculate_mmr($DiskReadArray);
 	$html = $html . print_html($diskread_array, "Disk Read/Input (block/s)");
@@ -282,6 +320,14 @@ while ($inst= mysql_fetch_array($inst_query)) {
 
 	$netrx_array = calculate_mmr($NetRXArray);
 	$html =  $html .print_html($netrx_array, "Network Received/RX (KB/s)");
+
+	$swapin_array = calculate_mmr($SwapInArray);
+	$html = $html . print_html($swapin_array, "Swap In");
+
+	$swapout_array = calculate_mmr($SwapOutArray);
+	$html = $html . print_html($swapout_array,"Swap Out");
+
+
 
 	$html = $html . close_html_table();
 
@@ -306,6 +352,9 @@ while ($inst= mysql_fetch_array($inst_query)) {
 	array_push($insert, insert_sql("disk_write", $diskwrite_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("nettx", $nettx_array, $start_date, $end_date, $itoken));
 	array_push($insert, insert_sql("netrx", $netrx_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("swapin", $swapin_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("swapout", $swapout_array, $start_date, $end_date, $itoken));
+	array_push($insert, insert_sql("memswpd", $memswap_array, $start_date, $end_date, $itoken));
 
 	SQL_query($insert);
 

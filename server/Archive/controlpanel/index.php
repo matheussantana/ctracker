@@ -109,7 +109,7 @@ if(isset($_SESSION['email']) == false){
    <footer>
 
       <div class="container">  
-         <div id="FooterTree"> ctracker © Matheus SantAna 2012-2014 - version 0.02 beta <br>HTML template based from: © 2011 Minimalis -Valid html5, design and code by <a href="http://www.marijazaric.com">marija zaric - creative simplicity</a> </div> 
+         <div id="FooterTree"> ctracker © Matheus SantAna 2012-2015 - version 0.02 beta <br>HTML template based from: © 2011 Minimalis -Valid html5, design and code by <a href="http://www.marijazaric.com">marija zaric - creative simplicity</a> </div> 
       </div>
    </footer>
 

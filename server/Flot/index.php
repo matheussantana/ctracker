@@ -48,6 +48,12 @@ if(isset($_GET['field']) == false){
 			switch ($display_mode) {
 				case "idle":
 					break;
+				case "us":
+					break;
+				case "sy":
+					break;
+				case "wa":
+					break;
 				case "all":
 					break;
 				default:
@@ -58,6 +64,10 @@ if(isset($_GET['field']) == false){
 		case "mem":
 			switch ($display_mode) {
 				case "free":
+					break;
+				case "cache":
+					break;
+				case "buff":
 					break;
 				case "all":
 					break;
@@ -70,6 +80,8 @@ if(isset($_GET['field']) == false){
                         switch ($display_mode) {
                                 case "bo":
                                         break;
+				case "bi":
+					break;
                                 case "all":
                                         break;
                                 default:
@@ -95,6 +107,8 @@ if(isset($_GET['field']) == false){
                         switch ($display_mode) {
                                 case "so":
                                         break;
+				case "si":
+					break;
                                 case "all":
                                         break;
                                 default:
@@ -102,6 +116,21 @@ if(isset($_GET['field']) == false){
                                         break;
                         }
 
+			break;
+		case "procs":
+			switch ($display_mode){
+				case "r":
+					break;
+				case "b":
+					break;
+				case "all":
+					break;
+				default:
+					$display_mode="all";
+					break;
+
+
+			}
 			break;
 		case "all":
 			break;
@@ -163,12 +192,21 @@ jQuery('#loading')
 <?
 
 include "plot.php";
-$cpu_opt="cpu_opt";
-$mem_opt="mem_opt";
-$io_opt="io_opt";
-$swap_opt="swap_opt";
+$cpuid_opt="cpuid_opt";
+$cpuus_opt="cpuus_opt";
+$cpusy_opt="cpusy_opt";
+$cpuwa_opt="cpuwa_opt";
+$memfree_opt="memfree_opt";
+$memcache_opt="memcache_opt";
+$membuff_opt="membuff_opt";
+$iobi_opt="iobi_opt";
+$iobo_opt="iobo_opt";
+$swapsi_opt="swapsi_opt";
+$swapso_opt="swapso_opt";
 $net_txSum="net_txSum";
 $net_rxSum="net_rxSum";
+$procsb_opt="procsb_opt";
+$procsr_opt="procsr_opt";
 
 
 $i = 0;
@@ -179,17 +217,40 @@ while ($inst = mysql_fetch_array($inst_query)) {
 	$i++;
 }
 if(($display_field=="cpu" && $display_mode=="idle") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all"))
-	getjsplot("cpu", "id", "placeholder", "updateinterval",$itoken, $interval,$cpu_opt, $host_list);
+	getjsplot("cpu", "id", "placeholder", "updateinterval",$itoken, $interval,$cpuid_opt, $host_list);
+if(($display_field=="cpu" && $display_mode=="us") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all"))
+	getjsplot("cpu", "us", "placeholder7", "updateintervali7",$itoken, $interval,$cpuus_opt, $host_list);
+if(($display_field=="cpu" && $display_mode=="sy") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all"))
+	getjsplot("cpu", "sy", "placeholder8", "updateinterval8",$itoken, $interval,$cpusy_opt, $host_list);
+if(($display_field=="cpu" && $display_mode=="wa") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all"))
+	getjsplot("cpu", "wa", "placeholder9", "updateinterval9",$itoken, $interval,$cpuwa_opt, $host_list);
+
 if(($display_field=="mem" && $display_mode=="free") || $display_field=="all" || ($display_field=="mem" && $display_mode=="all"))
-	getjsplot("memory", "free", "placeholder2", "updateinterval2",$itoken, $interval, $mem_opt, $host_list);
+	getjsplot("memory", "free", "placeholder2", "updateinterval2",$itoken, $interval, $memfree_opt, $host_list);
+if(($display_field=="mem" && $display_mode=="cache") || $display_field=="all" || ($display_field=="mem" && $display_mode=="all"))
+	getjsplot("memory", "cache", "placeholder10", "updateinterval10",$itoken, $interval, $memcache_opt, $host_list);
+if(($display_field=="mem" && $display_mode=="buff") || $display_field=="all" || ($display_field=="mem" && $display_mode=="all"))
+	getjsplot("memory", "buff", "placeholder11", "updateinterval11",$itoken, $interval, $membuff_opt, $host_list);
+
 if(($display_field=="disk" && $display_mode=="bo") || $display_field=="all" || ($display_field=="disk" && $display_mode=="all"))
-	getjsplot("io", "bo", "placeholder3", "updateinterval3",$itoken, $interval, $io_opt, $host_list);
+	getjsplot("io", "bo", "placeholder3", "updateinterval3",$itoken, $interval, $iobo_opt, $host_list);
+if(($display_field=="disk" && $display_mode=="bi") || $display_field=="all" || ($display_field=="disk" && $display_mode=="all"))
+	getjsplot("io", "bi", "placeholder12", "updateinterval12",$itoken, $interval, $iobi_opt, $host_list);
+
 if(($display_field=="swap" && $display_mode=="so") || $display_field=="all" || ($display_field=="swap" && $display_mode=="all"))
-	getjsplot("swap", "so", "placeholder4", "updateinterval4",$itoken, $interval, $swap_opt, $host_list);
+	getjsplot("swap", "so", "placeholder4", "updateinterval4",$itoken, $interval, $swapso_opt, $host_list);
+if(($display_field=="swap" && $display_mode=="si") || $display_field=="all" || ($display_field=="swap" && $display_mode=="all"))
+	getjsplot("swap", "si", "placeholder13", "updateinterval13",$itoken, $interval, $swapsi_opt, $host_list);
+
 if(($display_field=="net" && $display_mode=="txkbs") || $display_field=="all" || ($display_field=="net" && $display_mode=="all"))
 	getjsplot("network", "txSum", "placeholder5", "updateinterval5",$itoken, $interval, $net_txSum, $host_list);
 if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" || ($display_field=="net" && $display_mode=="all"))
 	getjsplot("network", "rxSum", "placeholder6", "updateinterval6",$itoken, $interval, $net_rxSum, $host_list);
+
+if(($display_field=="procs" && $display_mode=="r") || $display_field=="all" || ($display_field=="procs" && $display_mode=="all"))
+	getjsplot("procs", "r", "placeholder14", "updateinterval14",$itoken, $interval, $procsr_opt, $host_list);
+if(($display_field=="procs" && $display_mode=="b") || $display_field=="all" || ($display_field=="procs" && $display_mode=="all"))
+	getjsplot("procs", "b", "placeholder15", "updateinterval15",$itoken, $interval, $procsb_opt, $host_list);
 ?>
 
 </head>
@@ -204,33 +265,84 @@ if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" ||
 	<div id="content">
 		<?php if(($display_field=="cpu" && $display_mode=="idle") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all")){?>
 		<p>CPU - id: Time spent idle(Percentage)</p>
-		<?php getFilter($cpu_opt, $host_list, $itoken); ?>
+		<?php getFilter($cpuid_opt, $host_list, $itoken); ?>
 		<div class="demo-container">
 			<div id="placeholder" class="demo-placeholder"></div>
 		</div>
 		<?}?>
+		<?php if(($display_field=="cpu" && $display_mode=="us") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all")){?>
+		<p>CPU - us: Time spent running non-kernel code. (user time, including nice time)(Percentage)</p>
+		<?php getFilter($cpuus_opt, $host_list, $itoken); ?>
+		<div class="demo-container">
+			<div id="placeholder7" class="demo-placeholder"></div>
+		</div>
+		<?}?>
+
+		<?php if(($display_field=="cpu" && $display_mode=="sy") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all")){?>
+		<p>CPU - sy: Time spent running kernel code. (system time)(Percentage)</p>
+		<?php getFilter($cpusy_opt, $host_list, $itoken); ?>
+		<div class="demo-container">
+			<div id="placeholder8" class="demo-placeholder"></div>
+		</div>
+		<?}?>
+
+		<?php if(($display_field=="cpu" && $display_mode=="wa") || $display_field=="all" || ($display_field=="cpu" && $display_mode=="all")){?>
+		<p>CPU - wa: Time spent waiting for IO.(Percentage)</p>
+		<?php getFilter($cpuwa_opt, $host_list, $itoken); ?>
+		<div class="demo-container">
+			<div id="placeholder9" class="demo-placeholder"></div>
+		</div>
+		<?}?>
+
+
 
 <!--		<p>You can update a chart periodically to get a real-time effect by using a timer to insert the new data in the plot and redraw it.</p> -->
 
 <!--		<p>Time between updates: <input id="updateInterval" type="text" value="" style="text-align: right; width:5em"> milliseconds</p> -->
 		<?php if(($display_field=="mem" && $display_mode=="free" )|| $display_field=="all" || ($display_field=="mem" && $display_mode=="all")){?>
-		<p>Memory - free</p>
-		<?php getFilter($mem_opt, $host_list, $itoken); ?>
+		<p>Memory - free: the amount of idle memory.</p>
+		<?php getFilter($memfree_opt, $host_list, $itoken); ?>
 
 		<div class="demo-container">
 			<div id="placeholder2" class="demo-placeholder"></div>
 		</div>
 		<?} ?>
 
+		<?php if(($display_field=="mem" && $display_mode=="cache" )|| $display_field=="all" || ($display_field=="mem" && $display_mode=="all")){?>
+		<p>Memory - cache: the amount of memory used as cache.</p>
+		<?php getFilter($memcache_opt, $host_list, $itoken); ?>
+
+		<div class="demo-container">
+			<div id="placeholder10" class="demo-placeholder"></div>
+		</div>
+		<?} ?>
+		<?php if(($display_field=="mem" && $display_mode=="buff" )|| $display_field=="all" || ($display_field=="mem" && $display_mode=="all")){?>
+		<p>Memory - buff: the amount of memory used as buffers.</p>
+		<?php getFilter($membuff_opt, $host_list, $itoken); ?>
+
+		<div class="demo-container">
+			<div id="placeholder11" class="demo-placeholder"></div>
+		</div>
+		<?} ?>
+
+
 		<?php if(($display_field=="disk" && $display_mode=="bo") || $display_field=="all" || ($display_field=="disk" && $display_mode=="all")){?>
 		<p>Disk - bo: Blocks sent to a block device (blocks/s)</p>
-		<?php getFilter($io_opt, $host_list, $itoken); ?>
+		<?php getFilter($iobo_opt, $host_list, $itoken); ?>
 
 		<div class="demo-container">
 			<div id="placeholder3" class="demo-placeholder"></div>
 		</div>
 		<?}?>
 
+		<?php if(($display_field=="disk" && $display_mode=="bi") || $display_field=="all" || ($display_field=="disk" && $display_mode=="all")){?>
+		<p>Disk - bi: Blocks received from a block device (blocks/s)</p>
+		<?php getFilter($iobi_opt, $host_list, $itoken); ?>
+
+		<div class="demo-container">
+			<div id="placeholder12" class="demo-placeholder"></div>
+		</div>
+		<?}?>
 		<?php if(($display_field=="net" && $display_mode=="txkbs") || $display_field=="all" || ($display_field=="net" && $display_mode=="all")){?>
 		<p>Network - txkB/s: Total number of kilobytes transmitted per second. </p>
 		<?php getFilter($net_txSum, $host_list, $itoken); ?>
@@ -251,12 +363,40 @@ if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" ||
 
 		<?php if(($display_field=="swap" && $display_mode=="so") || $display_field=="all" || ($display_field=="swap" && $display_mode=="all")){?>
 		<p>Swap - so: Amount of memory swapped to disk (/s). </p>
-		<?php getFilter($swap_opt, $host_list, $itoken); ?>
+		<?php getFilter($swapso_opt, $host_list, $itoken); ?>
 
 		<div class="demo-container">
 			<div id="placeholder4" class="demo-placeholder"></div>
 		</div>
 		<?}?>
+		<?php if(($display_field=="swap" && $display_mode=="si") || $display_field=="all" || ($display_field=="swap" && $display_mode=="all")){?>
+		<p>Swap - si: Amount of memory swapped in from disk (/s). </p>
+		<?php getFilter($swapsi_opt, $host_list, $itoken); ?>
+
+		<div class="demo-container">
+			<div id="placeholder13" class="demo-placeholder"></div>
+		</div>
+		<?}?>
+
+		<?php if(($display_field=="procs" && $display_mode=="r") || $display_field=="all" || ($display_field=="procs" && $display_mode=="all")){?>
+		<p>Procs - r: The number of processes waiting for run time. </p>
+		<?php getFilter($procsr_opt, $host_list, $itoken); ?>
+
+		<div class="demo-container">
+			<div id="placeholder14" class="demo-placeholder"></div>
+		</div>
+		<?}?>
+
+
+		<?php if(($display_field=="procs" && $display_mode=="b") || $display_field=="all" || ($display_field=="procs" && $display_mode=="all")){?>
+		<p>Procs - b: The number of processes in uninterruptible sleep. </p>
+		<?php getFilter($procsb_opt, $host_list, $itoken); ?>
+
+		<div class="demo-container">
+			<div id="placeholder15" class="demo-placeholder"></div>
+		</div>
+		<?}?>
+
 	</div>
 
 <?/*	<div id="footer">
@@ -280,6 +420,9 @@ if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" ||
 	<h1>CPU</h1>
 	<table>
 		<tr><td><a href="?field=cpu&mode=idle&itoken=<?echo $itoken;?>&interval=def">id: Time spent idle</a></td></tr>
+		<tr><td><a href="?field=cpu&mode=us&itoken=<?echo $itoken;?>&interval=def">us: Time spent running non-kernel code. (user time, including nice time)</a></td></tr>
+		<tr><td><a href="?field=cpu&mode=sy&itoken=<?echo $itoken;?>&interval=def">sy: Time spent running kernel code. (system time)</a></td></tr>
+		<tr><td><a href="?field=cpu&mode=wa&itoken=<?echo $itoken;?>&interval=def">wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.</a></td></tr>
                 <tr><td><a href="?field=cpu&mode=all&itoken=<?echo $itoken;?>&interval=def">display all cpu charts</a></td></tr>
 	</table>
 	<a class="close-reveal-modal">&#215;</a>
@@ -290,6 +433,8 @@ if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" ||
 	<h1>Memory</h1>
 	<table>
 		<tr><td><a href="?field=mem&mode=free&itoken=<?echo $itoken;?>&interval=def">free: the amount of idle memory</a></td></tr>
+		<tr><td><a href="?field=mem&mode=buff&itoken=<?echo $itoken;?>&interval=def">cache: the amount of memory used as cache.</a></td></tr>
+		<tr><td><a href="?field=mem&mode=cache&itoken=<?echo $itoken;?>&interval=def">buff: the amount of memory used as buffers.</a></td></tr>
                 <tr><td><a href="?field=mem&mode=all&itoken=<?echo $itoken;?>&interval=def">display all memory charts</a></td></tr>
 	</table>
 	<a class="close-reveal-modal">&#215;</a>
@@ -300,6 +445,7 @@ if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" ||
 	<h1>Disk</h1>
 	<table>
 		<tr><td><a href="?field=disk&mode=bo&itoken=<?echo $itoken;?>&interval=def">bo: Blocks sent to a block device (blocks/s)</a></td></tr>
+		<tr><td><a href="?field=disk&mode=bi&itoken=<?echo $itoken;?>&interval=def">bi: Blocks received from a block device (blocks/s).</a></td></tr>
                 <tr><td><a href="?field=disk&mode=all&itoken=<?echo $itoken;?>&interval=def">display all disk charts</a></td></tr>
 	</table>
 	<a class="close-reveal-modal">&#215;</a>
@@ -321,12 +467,25 @@ if(($display_field=="net" && $display_mode=="rxkbs") || $display_field=="all" ||
 	<h1>Swap</h1>
 	<table>
 		<tr><td><a href="?field=swap&mode=so&itoken=<?echo $itoken;?>&interval=def">so: Amount of memory swapped to disk (/s)</a></td></tr>
+		<tr><td><a href="?field=swap&mode=si&itoken=<?echo $itoken;?>&interval=def">si: Amount of memory swapped in from disk (/s).</a></td></tr>
                 <tr><td><a href="?field=swap&mode=all&itoken=<?echo $itoken;?>&interval=def">display all swap charts</a></td></tr>
 	</table>
 	<a class="close-reveal-modal">&#215;</a>
 </div>
+<a href="#" class="classname"  data-reveal-id="myModal_procs_link_chart" style="position: fixed; bottom: 3px; left: 450px;" >Procs</a>
+<div id="myModal_procs_link_chart" class="reveal-modal">
+	<h1>Procs</h1>
+	<table>
+		<tr><td><a href="?field=procs&mode=r&itoken=<?echo $itoken;?>&interval=def">r: The number of processes waiting for run time.</a></td></tr>
+		<tr><td><a href="?field=procs&mode=b&itoken=<?echo $itoken;?>&interval=def">b: The number of processes in uninterruptible sleep.</a></td></tr>
+                <tr><td><a href="?field=procs&mode=all&itoken=<?echo $itoken;?>&interval=def">display all swap charts</a></td></tr>
+	</table>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
 
-<a href="?field=all&itoken=<?echo $itoken;?>&interval=def" class="classname" style="position: fixed; bottom: 3px; left: 450px;" >All</a>
+
+
+<a href="?field=all&itoken=<?echo $itoken;?>&interval=def" class="classname" style="position: fixed; bottom: 3px; left: 510px;" >All</a>
 
 </div>
 </body>

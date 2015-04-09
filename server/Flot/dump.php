@@ -234,11 +234,20 @@ date_default_timezone_set("UTC");
 //echo 'timestamp: '.$ts.'<br>';
 //echo $time_UTC.'<br>';
 	$vet_time[$count]='['.$ts.', '.$obj['memory']['free'].']';
-	$vet_time_cpu_us[$count]='['.$ts.', '.$obj['cpu']['id'].']';
+	$vet_time_mem_cache[$count]='['.$ts.', '.$obj['memory']['cache'].']';
+	$vet_time_mem_buff[$count]='['.$ts.', '.$obj['memory']['buff'].']';
+	$vet_time_cpu_id[$count]='['.$ts.', '.$obj['cpu']['id'].']';
+	$vet_time_cpu_us[$count]='['.$ts.', '.$obj['cpu']['us'].']';
+	$vet_time_cpu_sy[$count]='['.$ts.', '.$obj['cpu']['sy'].']';
+	$vet_time_cpu_wa[$count]='['.$ts.', '.$obj['cpu']['wa'].']';
 	$vet_time_io_bo[$count]='['.$ts.', '.$obj['io']['bo'].']';
+	$vet_time_io_bi[$count]='['.$ts.', '.$obj['io']['bi'].']';
 	$vet_time_swap_so[$count]='['.$ts.', '.$obj['swap']['so'].']';
+	$vet_time_swap_si[$count]='['.$ts.', '.$obj['swap']['si'].']';
 	$vet_time_network_txSum[$count]='['.$ts.', '.$obj['network']['txSum'].']';
 	$vet_time_network_rxSum[$count]='['.$ts.', '.$obj['network']['rxSum'].']';
+	$vet_time_procs_b[$count]='['.$ts.', '.$obj['procs']['b'].']';
+	$vet_time_procs_r[$count]='['.$ts.', '.$obj['procs']['r'].']';
 
 
 //$ar = sizeof(iterator_to_array($cursor));
@@ -249,11 +258,20 @@ date_default_timezone_set("UTC");
 //if($count != sizeof(iterator_to_array($cursor))){
 	if($cursor->hasNext() == true){
 		$vet_time[$count]=$vet_time[$count].',';
+		$vet_time_mem_cache[$count]=$vet_time_mem_cache[$count].',';
+		$vet_time_mem_buff[$count]=$vet_time_mem_buff[$count].',';
+		$vet_time_cpu_id[$count]=$vet_time_cpu_id[$count].',';
 		$vet_time_cpu_us[$count]=$vet_time_cpu_us[$count].',';
+		$vet_time_cpu_sy[$count]=$vet_time_cpu_sy[$count].',';
+		$vet_time_cpu_wa[$count]=$vet_time_cpu_wa[$count].',';
 		$vet_time_io_bo[$count]=$vet_time_io_bo[$count].',';
+		$vet_time_io_bi[$count]=$vet_time_io_bi[$count].',';
 		$vet_time_swap_so[$count]=$vet_time_swap_so[$count].',';
+		$vet_time_swap_si[$count]=$vet_time_swap_si[$count].',';
 		$vet_time_network_rxSum[$count]=$vet_time_network_rxSum[$count].',';
 		$vet_time_network_txSum[$count]=$vet_time_network_txSum[$count].',';
+		$vet_time_procs_b[$count]=$vet_time_procs_b[$count].',';
+		$vet_time_procs_r[$count]=$vet_time_procs_r[$count].',';
 
 	}
 //}
@@ -261,11 +279,20 @@ date_default_timezone_set("UTC");
 $count++;
 }
 sort($vet_time);
+sort($vet_time_mem_cache);
+sort($vet_time_mem_buff);
+sort($vet_time_cpu_id);
 sort($vet_time_cpu_us);
+sort($vet_time_cpu_sy);
+sort($vet_time_cpu_wa);
 sort($vet_time_io_bo);
+sort($vet_time_io_bi);
 sort($vet_time_swap_so);
+sort($vet_time_swap_si);
 sort($vet_time_network_rxSum);
 sort($vet_time_network_txSum);
+sort($vet_time_procs_b);
+sort($vet_time_procs_r);
 //echo $vet_time[0];
 ?>
 
@@ -273,17 +300,34 @@ sort($vet_time_network_txSum);
 
 if($type == "io" && $field == "bo")
 	$data_stats = $vet_time_io_bo;
+elseif($type == "io" && $field == "bi")
+	$data_stats = $vet_time_io_bi;
 elseif($type == "cpu" && $field == "id")
+	$data_stats = $vet_time_cpu_id;
+elseif($type == "cpu" && $field == "us")
 	$data_stats = $vet_time_cpu_us;
+elseif($type == "cpu" && $field == "wa")
+	$data_stats = $vet_time_cpu_wa;
+elseif($type == "cpu" && $field == "sy")
+	$data_stats = $vet_time_cpu_sy;
 elseif($type == "memory" && $field == "free")
 	$data_stats = $vet_time;
+elseif($type == "memory" && $field == "cache")
+	$data_stats = $vet_time_mem_cache;
+elseif($type == "memory" && $field == "buff")
+	$data_stats = $vet_time_mem_buff;
 elseif($type == "swap" && $field == "so")
 	$data_stats = $vet_time_swap_so;
+elseif($type == "swap" && $field == "si")
+	$data_stats = $vet_time_swap_si;
 elseif($type == "network" && $field == "txSum")
 	$data_stats = $vet_time_network_txSum;
 elseif($type == "network" && $field == "rxSum")
 	$data_stats = $vet_time_network_rxSum;
-
+elseif($type == "procs" && $field == "b")
+	$data_stats = $vet_time_procs_b;
+elseif($type == "procs" && $field == "r")
+	$data_stats = $vet_time_procs_r;
 
 
 //$json="[";

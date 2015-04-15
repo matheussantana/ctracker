@@ -171,9 +171,8 @@ switch ($load) {
 		$cursor = $collection->find(array('InstanceToken' => $itoken, "timestamp" => array('$gt' => $ts, '$lte' => $end)));
 }
 
-
+$cursor->limit(1000);
 //  $cursor = $collection->find($criteria);
-
 //$cursor->sort(array('time' => 1));
 if($cursor == false)
 	exit;
@@ -233,20 +232,35 @@ date_default_timezone_set("UTC");
 
 //echo 'timestamp: '.$ts.'<br>';
 //echo $time_UTC.'<br>';
+if($type == "memory" && $field == "free")
 	$vet_time[$count]='['.$ts.', '.$obj['memory']['free'].']';
+elseif($type == "memory" && $field == "cache")
 	$vet_time_mem_cache[$count]='['.$ts.', '.$obj['memory']['cache'].']';
+elseif($type == "memory" && $field == "buff")
 	$vet_time_mem_buff[$count]='['.$ts.', '.$obj['memory']['buff'].']';
+elseif($type == "cpu" && $field == "id")
 	$vet_time_cpu_id[$count]='['.$ts.', '.$obj['cpu']['id'].']';
+elseif($type == "cpu" && $field == "us")
 	$vet_time_cpu_us[$count]='['.$ts.', '.$obj['cpu']['us'].']';
+elseif($type == "cpu" && $field == "sy")
 	$vet_time_cpu_sy[$count]='['.$ts.', '.$obj['cpu']['sy'].']';
+elseif($type == "cpu" && $field == "wa")
 	$vet_time_cpu_wa[$count]='['.$ts.', '.$obj['cpu']['wa'].']';
+elseif($type == "io" && $field == "bo")
 	$vet_time_io_bo[$count]='['.$ts.', '.$obj['io']['bo'].']';
+elseif($type == "io" && $field == "bi")
 	$vet_time_io_bi[$count]='['.$ts.', '.$obj['io']['bi'].']';
+elseif($type == "swap" && $field == "so")
 	$vet_time_swap_so[$count]='['.$ts.', '.$obj['swap']['so'].']';
+elseif($type == "swap" && $field == "si")
 	$vet_time_swap_si[$count]='['.$ts.', '.$obj['swap']['si'].']';
+elseif($type == "network" && $field == "txSum")
 	$vet_time_network_txSum[$count]='['.$ts.', '.$obj['network']['txSum'].']';
+elseif($type == "network" && $field == "rxSum")
 	$vet_time_network_rxSum[$count]='['.$ts.', '.$obj['network']['rxSum'].']';
+elseif($type == "procs" && $field == "b")
 	$vet_time_procs_b[$count]='['.$ts.', '.$obj['procs']['b'].']';
+elseif($type == "procs" && $field == "r")
 	$vet_time_procs_r[$count]='['.$ts.', '.$obj['procs']['r'].']';
 
 
@@ -257,20 +271,35 @@ date_default_timezone_set("UTC");
 
 //if($count != sizeof(iterator_to_array($cursor))){
 	if($cursor->hasNext() == true){
+if($type == "memory" && $field == "free")
 		$vet_time[$count]=$vet_time[$count].',';
+elseif($type == "memory" && $field == "cache")
 		$vet_time_mem_cache[$count]=$vet_time_mem_cache[$count].',';
+elseif($type == "memory" && $field == "buff")
 		$vet_time_mem_buff[$count]=$vet_time_mem_buff[$count].',';
+elseif($type == "cpu" && $field == "id")
 		$vet_time_cpu_id[$count]=$vet_time_cpu_id[$count].',';
+elseif($type == "cpu" && $field == "us")
 		$vet_time_cpu_us[$count]=$vet_time_cpu_us[$count].',';
+elseif($type == "cpu" && $field == "sy")
 		$vet_time_cpu_sy[$count]=$vet_time_cpu_sy[$count].',';
+elseif($type == "cpu" && $field == "wa")
 		$vet_time_cpu_wa[$count]=$vet_time_cpu_wa[$count].',';
+elseif($type == "io" && $field == "bo")
 		$vet_time_io_bo[$count]=$vet_time_io_bo[$count].',';
+elseif($type == "io" && $field == "bi")
 		$vet_time_io_bi[$count]=$vet_time_io_bi[$count].',';
+elseif($type == "swap" && $field == "so")
 		$vet_time_swap_so[$count]=$vet_time_swap_so[$count].',';
+elseif($type == "swap" && $field == "si")
 		$vet_time_swap_si[$count]=$vet_time_swap_si[$count].',';
+elseif($type == "network" && $field == "rxSum")
 		$vet_time_network_rxSum[$count]=$vet_time_network_rxSum[$count].',';
+elseif($type == "network" && $field == "txSum")
 		$vet_time_network_txSum[$count]=$vet_time_network_txSum[$count].',';
+elseif($type == "procs" && $field == "b")
 		$vet_time_procs_b[$count]=$vet_time_procs_b[$count].',';
+elseif($type == "procs" && $field == "r")
 		$vet_time_procs_r[$count]=$vet_time_procs_r[$count].',';
 
 	}
@@ -278,20 +307,35 @@ date_default_timezone_set("UTC");
 //echo $vet_time[$count];
 $count++;
 }
+if($type == "memory" && $field == "free")
 sort($vet_time);
+elseif($type == "memory" && $field == "cache")
 sort($vet_time_mem_cache);
+elseif($type == "memory" && $field == "buff")
 sort($vet_time_mem_buff);
+elseif($type == "cpu" && $field == "id")
 sort($vet_time_cpu_id);
+elseif($type == "cpu" && $field == "us")
 sort($vet_time_cpu_us);
+elseif($type == "cpu" && $field == "sy")
 sort($vet_time_cpu_sy);
+elseif($type == "cpu" && $field == "wa")
 sort($vet_time_cpu_wa);
+elseif($type == "io" && $field == "bo")
 sort($vet_time_io_bo);
+elseif($type == "io" && $field == "bi")
 sort($vet_time_io_bi);
+elseif($type == "swap" && $field == "so")
 sort($vet_time_swap_so);
+elseif($type == "swap" && $field == "si")
 sort($vet_time_swap_si);
+elseif($type == "network" && $field == "rxSum")
 sort($vet_time_network_rxSum);
+elseif($type == "network" && $field == "txSum")
 sort($vet_time_network_txSum);
+elseif($type == "procs" && $field == "b")
 sort($vet_time_procs_b);
+elseif($type == "procs" && $field == "r")
 sort($vet_time_procs_r);
 //echo $vet_time[0];
 ?>

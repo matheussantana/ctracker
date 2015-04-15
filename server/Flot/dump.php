@@ -171,7 +171,7 @@ switch ($load) {
 		$cursor = $collection->find(array('InstanceToken' => $itoken, "timestamp" => array('$gt' => $ts, '$lte' => $end)));
 }
 
-$cursor->limit(1000);
+//$cursor->limit(1000);
 //  $cursor = $collection->find($criteria);
 //$cursor->sort(array('time' => 1));
 if($cursor == false)

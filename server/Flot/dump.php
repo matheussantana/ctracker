@@ -373,14 +373,14 @@ elseif($type == "procs" && $field == "b")
 elseif($type == "procs" && $field == "r")
 	$data_stats = $vet_time_procs_r;
 
-
+$v= $data_stats[count($data_stats)-1];
+$data_stats[count($data_stats)-1] = str_replace("],","]",$v);
 //$json="[";
 $json = "";
 foreach($data_stats as $data){
 	$json = $json.$data;
 }
 //$json = $json."]";
-
 
 //echo $vet_time[1];
 $i=0;
